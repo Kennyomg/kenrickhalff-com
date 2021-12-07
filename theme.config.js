@@ -1,9 +1,9 @@
 const YEAR = new Date().getFullYear()
 
-export default {
+const theme = {
   footer: (
     <small style={{ display: 'block', marginTop: '8rem' }}>
-      <time>{YEAR}</time> © Your Name.
+      <time>{YEAR}</time> © Kenrick Halff.
       <a href="/feed.xml">RSS</a>
       <style jsx>{`
         a {
@@ -17,5 +17,11 @@ export default {
         }
       `}</style>
     </small>
-  )
+  ),
+  i18n: [
+    { locale: 'en', text: 'English' },
+    { locale: 'nl', text: 'Nederlands' }
+  ]
 }
+
+export default theme
