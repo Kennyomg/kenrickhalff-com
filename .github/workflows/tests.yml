@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: rm -rf node_modules && yarn install --frozen-lockfile
       - name: Install Playwright
-        run: yarn create playwright install --with-deps
+        run: yarn create playwright install-deps
       - name: Run Jest
         run: yarn test
       - name: Run Playwright tests
