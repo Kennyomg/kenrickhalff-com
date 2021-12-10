@@ -1,11 +1,12 @@
 {
   "name": "kenrickhalff-com",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:e2e": "npx playwright test"
   },
   "dependencies": {
     "next": "12.0.7",
@@ -13,10 +14,23 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.17.1",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
     "@types/node": "16.11.12",
     "@types/react": "17.0.37",
+    "babel-jest": "^27.4.4",
     "eslint": "8.4.1",
     "eslint-config-next": "12.0.7",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.4.4",
+    "react-test-renderer": "^17.0.2",
     "typescript": "4.5.2"
-  }
+  },
+  "version": "1.0.0",
+  "description": "Kenrick Halff Software Developer Portfolio",
+  "main": "index.js",
+  "repository": "git@github.com:Kennyomg/kenrickhalff-com.git",
+  "author": "Kenrick Halff <kenrickhalff@gmail.com>",
+  "license": "MIT"
 }
