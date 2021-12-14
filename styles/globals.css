@@ -1,3 +1,17 @@
+:root {
+  --phi: 1.618;
+  --night-sky-blue: rgb(12, 20, 69, 1);
+
+  --moon-position-top: 3rem;
+  --moon-position-right: 3rem;
+  --moon-position: top calc(var(--moon-position-top) + 3.5rem) right calc(var(--moon-position-right) + 3.5rem);
+  --moon-light-gradient-color-1: rgba(92,84,164,.4);
+  --moon-light-gradient-color-2: rgba(76,64,142,.4);
+  --moon-light-gradient-color-3: rgba(56,40,92,.4);
+  --moon-light-gradient-color-4: rgb(12, 20, 69, 0);
+  --moon-light-gradient: radial-gradient(circle farthest-side at var(--moon-position), var(--moon-light-gradient-color-1) 13%, var(--moon-light-gradient-color-2) 21%, var(--moon-light-gradient-color-3) 34%, var(--moon-light-gradient-color-4) 55%)
+}
+
 html,
 body {
   padding: 0;

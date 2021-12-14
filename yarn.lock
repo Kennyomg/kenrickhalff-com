@@ -3549,6 +3549,11 @@ jest-snapshot@^27.4.4:
     pretty-format "^27.4.2"
     semver "^7.3.2"
 
+jest-transformer-svg@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmmirror.com/jest-transformer-svg/download/jest-transformer-svg-1.0.1.tgz#8fae4798cff244c8c6213be285cd321015159a97"
+  integrity sha1-j65HmM/yRMjGITvihc0yEBUVmpc=
+
 jest-util@^27.4.2:
   version "27.4.2"
   resolved "https://registry.npmmirror.com/jest-util/download/jest-util-27.4.2.tgz#ed95b05b1adfd761e2cda47e0144c6a58e05a621"
