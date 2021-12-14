@@ -39,11 +39,18 @@
   z-index: 3;
 }
 
+/* BUG: bottom: 200px; is too high for iPhone SE */
 .silhouette {
   position: absolute;
   bottom: 200px;
   left: 1rem;
   z-index: 5;
+}
+
+@media only screen and (max-width: 400px) {
+  .silhouette {
+    bottom: 2rem;
+  }
 }
 
 .silhouette::after {
