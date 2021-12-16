@@ -45,7 +45,7 @@ test.describe('The website loads up', () => {
   })
 
   test('the flashlight is visible', async ({ page }) => {
-    const flashlight = page.locator('[data-testid="flashlight"]')
+    const flashlight = page.locator('[data-testid="flashlight-svg"]')
     const imageSrc = await flashlight.getAttribute('src') || ''
 
     await page.goto(getImagePath(imageSrc))

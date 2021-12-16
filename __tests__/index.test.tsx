@@ -39,12 +39,26 @@ describe('Home', () => {
   })
 
   it('renders the flashlight', () => {
-    const flashlight = screen.getByTestId('flashlight')
+    const flashlight = screen.getByTestId('flashlight-svg')
 
     expect(flashlight).toBeInTheDocument()
   })
 
-  it.todo('renders the clouds')
+  it('rotates the flashlight to 45 degrees', () => {
+    const flashlight = screen.getByTestId('flashlight')
+    console.log(flashlight.style.rotate)
+    expect(flashlight.style.rotate)
+  })
+
+  it('has an orbit for the clouds', () => {
+    const cloudOrbit = screen.getByTestId('cloudOrbit')
+
+    expect(cloudOrbit).toBeInTheDocument()
+  })
+
+  it.todo('adds clouds to the cloud orbit')
+
+  it.todo('separates the clouds with an specified offset')
 
   it.todo('selects the first cloud')
 
