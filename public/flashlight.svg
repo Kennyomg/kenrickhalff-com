@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48.506077mm"
+   height="111.01565mm"
+   viewBox="0 0 48.506077 111.01565"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="flashlight.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.90833333"
+     inkscape:cx="197.61468"
+     inkscape:cy="270.27523"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Laag 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-65.753694,-117.35134)">
+    <rect
+       style="fill:#000000;stroke-width:0.216061"
+       id="rect42"
+       width="23.885321"
+       height="79.639816"
+       x="78.064217"
+       y="148.72717" />
+    <path
+       id="path70"
+       style="fill:#000000;stroke-width:0.264583"
+       d="m 65.753694,117.35134 a 24.322246,39.35422 0 0 0 24.253301,36.47219 24.322246,39.35422 0 0 0 24.252775,-36.47219 z" />
+  </g>
+</svg>

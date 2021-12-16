@@ -33,12 +33,16 @@ describe('Home', () => {
   })
 
   it('makes the stars twinkle', () => {
-    const twinkle = screen.getByTestId('twinkling')
+    const twinkling = screen.getByTestId('twinkling')
 
-    expect(twinkle).toBeInTheDocument()
+    expect(twinkling).toBeInTheDocument()
   })
 
-  it.todo('renders the flashlight')
+  it('renders the flashlight', () => {
+    const flashlight = screen.getByTestId('flashlight')
+
+    expect(flashlight).toBeInTheDocument()
+  })
 
   it.todo('renders the clouds')
 

@@ -18,16 +18,18 @@ test.describe('The website loads up', () => {
 
   test('the moon is in the sky', async ({ page }) => {
     const moon = page.locator('css=img[alt="Image of the moon"]')
-    const imagePath = await moon.getAttribute('src') || ''
+    const imageSrc = await moon.getAttribute('src') || ''
 
-    await page.goto(`${imagePath[0] === '/' && url}${imagePath}`)
+    await page.goto(getImagePath(imageSrc))
     expect(await page.locator('img').screenshot()).toMatchSnapshot('moon.png')
   })
 
   test('the silhouette is looking at the sky', async ({ page }) => {
     const silhouette = page.locator('css=img[alt="Silhouette of Kenrick Halff looking into the night sky"]')
-    const imagePath = await silhouette.getAttribute('src')
-    await page.goto(`${url}${imagePath}`)
+    const imageSrc = await silhouette.getAttribute('src') || ''
+
+    await page.goto(getImagePath(imageSrc))
+
     expect(await page.locator('svg').screenshot()).toMatchSnapshot('silhouette.png')
   })
 
@@ -41,4 +43,17 @@ test.describe('The website loads up', () => {
     const twinkling = page.locator('[data-testid="twinkling"]')
     await expect(twinkling).toBeVisible()
   })
+
+  test('the flashlight is visible', async ({ page }) => {
+    const flashlight = page.locator('[data-testid="flashlight"]')
+    const imageSrc = await flashlight.getAttribute('src') || ''
+
+    await page.goto(getImagePath(imageSrc))
+
+    expect(await page.locator('svg').screenshot()).toMatchSnapshot('flashlight.png')
+  })
 })
+
+function getImagePath(imageSrc: string) {
+  return `${imageSrc[0] === '/' && url}${imageSrc}`
+}

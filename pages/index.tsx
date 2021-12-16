@@ -21,6 +21,7 @@ const Home: NextPage = () => {
         </div>
         <div className={styles.silhouette}>
           <Image src="/silhouette.svg" alt="Silhouette of Kenrick Halff looking into the night sky" width={50} height={200} />
+          <Image className={styles.flashlight} src="/flashlight.svg" alt="Flashlight pointing at the clouds held by Kenrick Halff" width={20} height={44} data-testid="flashlight" />
         </div>
       </main>
 

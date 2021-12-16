@@ -71,6 +71,12 @@
   
 }
 
+.flashlight {
+  position: absolute !important;
+  top: 50% !important;
+  right: 0 !important;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
