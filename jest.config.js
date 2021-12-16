@@ -8,7 +8,8 @@ module.exports = {
     '!**/*.config.*',
     '!**/playwright-report/**',
     '!**/e2e/**',
-    '!**/.github/**'
+    '!**/.github/**',
+    '!**/test-results/**'
   ],
   moduleNameMapper: {
     /* Handle CSS imports (with CSS modules)
@@ -28,7 +29,8 @@ module.exports = {
     '<rootDir>/.vercel/',
     '<rootDir>/e2e/',
     '<rootDir>/playwright-report/',
-    '<rootDir>/.github/'
+    '<rootDir>/.github/',
+    '<rootDir>/test-results'
   ],
   testEnvironment: 'jsdom',
   transform: {
@@ -44,7 +46,8 @@ module.exports = {
     '^.+\\.module\\.(css|sass|scss)$',
     '/e2e/',
     '/playwright-report/',
-    '/.github/'
+    '/.github/',
+    '<rootDir>/test-results'
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
 }
