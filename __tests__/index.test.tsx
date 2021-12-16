@@ -37,4 +37,14 @@ describe('Home', () => {
 
     expect(twinkle).toBeInTheDocument()
   })
+
+  it.todo('renders the flashlight')
+
+  it.todo('renders the clouds')
+
+  it.todo('selects the first cloud')
+
+  it.todo('points the flashlight at the selected cloud')
+
+  it.todo('selects the next cloud')
 })
