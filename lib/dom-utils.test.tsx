@@ -7,6 +7,6 @@ describe('DOM utility functions', () => {
     render(<div style={{transform: 'rotate(45deg)'}} data-testid="hello">Hello there</div>)
     const element = screen.getByTestId('hello')
 
-    expect(getCurrentRotation(element, global.window)).toBe(45)
+    expect(getCurrentRotation(element)).toBe(45)
   })
 })

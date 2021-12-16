@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Home from '../pages/index'
+import { getCurrentRotation } from '../lib/dom-utils'
 
 describe('Home', () => {
   beforeEach(() => {
@@ -46,8 +47,8 @@ describe('Home', () => {
 
   it('rotates the flashlight to 45 degrees', () => {
     const flashlight = screen.getByTestId('flashlight')
-    console.log(flashlight.style.rotate)
-    expect(flashlight.style.rotate)
+
+    expect(getCurrentRotation(flashlight)).toBe(45)
   })
 
   it('has an orbit for the clouds', () => {
