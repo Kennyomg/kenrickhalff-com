@@ -5,7 +5,10 @@ module.exports = {
     '!**/node_modules/**',
     '!**/.next/**',
     '!**/.vercel/**',
-    '!**/*.config.*'
+    '!**/*.config.*',
+    '!**/playwright-report/**',
+    '!**/e2e/**',
+    '!**/.github/**'
   ],
   moduleNameMapper: {
     /* Handle CSS imports (with CSS modules)
@@ -23,7 +26,9 @@ module.exports = {
     '<rootDir>/node_modules/',
     '<rootDir>/.next/',
     '<rootDir>/.vercel/',
-    '<rootDir>/e2e/'
+    '<rootDir>/e2e/',
+    '<rootDir>/playwright-report/',
+    '<rootDir>/.github/'
   ],
   testEnvironment: 'jsdom',
   transform: {
@@ -36,7 +41,10 @@ module.exports = {
     '/node_modules/',
     '/.next/',
     '/.vercel/',
-    '^.+\\.module\\.(css|sass|scss)$'
+    '^.+\\.module\\.(css|sass|scss)$',
+    '/e2e/',
+    '/playwright-report/',
+    '/.github/'
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
 }
