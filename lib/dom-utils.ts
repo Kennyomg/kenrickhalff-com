@@ -1,4 +1,6 @@
-export function getCurrentRotation(element: HTMLElement) {
+import { radiansToDegrees } from "./math-utils"
+
+export function getCurrentRotation(element: HTMLElement): number {
   const style = window.getComputedStyle(element, null)
   const transform = style.getPropertyValue("-webkit-transform") ||
                     style.getPropertyValue("-moz-transform") ||
@@ -15,4 +17,11 @@ export function getCurrentRotation(element: HTMLElement) {
   }
 
   return 0
+}
+
+export function getAngleBetweenElements(element1: HTMLElement, element2: HTMLElement): number {
+  const { x: x1, y: y1 } = element1.getBoundingClientRect()
+  const { x: x2, y: y2 } = element2.getBoundingClientRect()
+
+  return radiansToDegrees(Math.atan2(y1 - y2, x2 - x1))
 }

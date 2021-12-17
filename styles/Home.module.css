@@ -79,8 +79,7 @@
   transform-origin: bottom;
 }
 
-.flashlight::after {
-  content: "";
+.light {
   display: block;
   width: 20px;
   height: 500px;

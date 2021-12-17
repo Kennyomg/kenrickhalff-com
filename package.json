@@ -18,6 +18,7 @@
     "@playwright/test": "^1.17.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
+    "@testing-library/react-hooks": "^7.0.2",
     "@types/node": "16.11.12",
     "@types/react": "17.0.37",
     "babel-jest": "^27.4.4",

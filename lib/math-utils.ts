@@ -1,0 +1,1 @@
+export const radiansToDegrees = (rad: number): number => (rad * 180.0) / Math.PI
