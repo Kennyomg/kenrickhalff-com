@@ -1,12 +1,24 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState, useRef } from 'react'
+import { getAngleBetweenPoints, getDistanceBetweenPoints } from '../lib/dom-utils'
+import { useGlobalMouseUp } from '../lib/react-hooks'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
+  const flashlightRef = useRef<HTMLDivElement>(null)
   const [ flashlightRotation, setFlashlightRotation ] = useState(45)
   const [ lightLength, setLightLength ] = useState(200)
+
+  useGlobalMouseUp((event: MouseEvent) => {
+    if (flashlightRef) {
+      const rect = flashlightRef.current?.getBoundingClientRect() || new DOMRect()
+      const center: Vector = { x: rect.left + rect.width / 2, y: rect.bottom }
+      setFlashlightRotation(getAngleBetweenPoints(center, {x: event.clientX, y: event.clientY}))
+      setLightLength(getDistanceBetweenPoints(center, {x: event.clientX, y: event.clientY}) - rect.height)
+    }
+  }, flashlightRef)
 
   return (
     <div className={styles.container}>
@@ -33,7 +45,7 @@ const Home: NextPage = () => {
 
         <div className={styles.silhouette}>
           <Image src="/silhouette.svg" alt="Silhouette of Kenrick Halff looking into the night sky" width={50} height={200} />
-          <div className={styles.flashlight} style={{transform: `rotate(${flashlightRotation}deg)`}} data-testid="flashlight">
+          <div className={styles.flashlight} style={{transform: `rotate(${flashlightRotation}deg)`}} data-testid="flashlight" ref={flashlightRef}>
             <Image src="/flashlight.svg" alt="Flashlight pointing at the clouds held by Kenrick Halff" width={20} height={44} data-testid="flashlight-svg" />
             <div className={styles.light} style={{height: `${lightLength}px`}}></div>
           </div>

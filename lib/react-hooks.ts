@@ -1,16 +1,16 @@
-import { useEffect } from "react"
+import { MouseEventHandler, useEffect } from "react"
 
-export const useWindowEvent = (event: string, callback: EventListenerOrEventListenerObject) => {
+export const useWindowEvent = (event: string, callback: any, dep?: any) => {
   useEffect(() => {
     window.addEventListener(event, callback)
     return () => window.removeEventListener(event, callback)
-  }, [event, callback])
+  }, [event, callback, dep])
 }
 
-export const useGlobalMouseUp = (callback: EventListenerOrEventListenerObject) => {
-  return useWindowEvent('mouseup', callback)
+export const useGlobalMouseUp = (callback: any, dep?: any) => {
+  return useWindowEvent('mouseup', callback, dep)
 }
 
-export const useGlobalMouseMove = (callback: EventListenerOrEventListenerObject) => {
-  return useWindowEvent('mousemove', callback)
+export const useGlobalMouseMove = (callback: any, dep?: any) => {
+  return useWindowEvent('mousemove', callback, dep)
 }
