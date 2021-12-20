@@ -2,7 +2,7 @@ import { useWindowEvent, useGlobalMouseUp, useGlobalMouseMove } from './react-ho
 import { renderHook } from '@testing-library/react-hooks'
 import { fireEvent } from '@testing-library/react'
 
-const mockCallback = jest.fn()
+const mockCallback = jest.fn() as EventListener
 
 describe('Custom react hooks', () => {
 
