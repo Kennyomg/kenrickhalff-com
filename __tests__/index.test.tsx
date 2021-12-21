@@ -48,7 +48,7 @@ describe('Home', () => {
   it('rotates the flashlight to 45 degrees', () => {
     const flashlight = screen.getByTestId('flashlight')
 
-    expect(getCurrentRotation(flashlight)).toBe(45)
+    expect(getCurrentRotation(flashlight)).toBe(0)
   })
 
   it('has an orbit for the clouds', () => {
@@ -57,7 +57,11 @@ describe('Home', () => {
     expect(cloudOrbit).toBeInTheDocument()
   })
 
-  it.todo('adds clouds to the cloud orbit')
+  it('adds clouds to the cloud orbit', () => {
+    const cloud = screen.getByTestId('cloud-0')
+
+    expect(cloud).toBeInTheDocument()
+  })
 
   it.todo('separates the clouds with an specified offset')
 
