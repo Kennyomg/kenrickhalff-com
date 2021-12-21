@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { getCurrentRotation, getAngleBetweenElements, getAngleBetweenPoints, getDistanceBetweenPoints, getDistanceBetweenElements } from './dom-utils'
+import { getCurrentRotation, getAngleBetweenElements, getDistanceBetweenElements } from './dom-utils'
+import { getAngleBetweenPoints, getDistanceBetweenPoints } from './math-utils'
 
 describe('DOM utility functions', () => {
   it('should get the rotation of an element', () => {
@@ -8,10 +9,6 @@ describe('DOM utility functions', () => {
     const element = screen.getByText('Hello there')
 
     expect(getCurrentRotation(element)).toBe(45)
-  })
-
-  it('should get the angle between 2 points', () => {
-    expect(getAngleBetweenPoints({x: 100, y: 200}, {x: 200, y: 100})).toBe(45)
   })
 
   it('should get the angle between 2 elements', () => {
@@ -38,10 +35,6 @@ describe('DOM utility functions', () => {
     }))
 
     expect(getAngleBetweenElements(element1, element2)).toBe(45)
-  })
-
-  it('should get the distance between 2 points', () => {
-    expect(getDistanceBetweenPoints({x:0, y:0}, {x: 300, y: 400})).toBe(500)
   })
 
   it('should get the distance between 2 elements', () => {

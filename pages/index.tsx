@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useState, useRef, useEffect, createRef } from 'react'
 import { CloudType } from '../constants/enums'
-import { getAngleBetweenPoints, getDistanceBetweenPoints } from '../lib/dom-utils'
+import { getAngleBetweenPoints, getDistanceBetweenPoints } from '../lib/math-utils'
 import { radiansToDegrees } from '../lib/math-utils'
 import { useGlobalMouseUp } from '../lib/react-hooks'
 import styles from '../styles/Home.module.css'
@@ -63,9 +63,8 @@ const Home: NextPage = () => {
 
   const [ selectedCloud, setSelectedCloud] = useState<Cloud | false>(false)
   const [ isDragging, setIsDragging ] = useState(false)
-  const [ dragStart, setDragStart ] = useState<Vector>({x: 0, y: 0})
-  const [ dragEnd, setDragEnd ] = useState<Vector>({x: 0, y: 0})
   const [ dragStartCloudOrbitRotation, setDragStartCloudOrbitRotation ] = useState(0)
+  const [ dragStartMouseAngle, setDragStartMouseAngle ] = useState(0)
 
   useEffect(() => {
     const flashlightRect = flashlightRef.current?.getBoundingClientRect() || new DOMRect()
@@ -95,39 +94,57 @@ const Home: NextPage = () => {
     cloudOrbitRadius, cloudOrbitPivotCoords.x, cloudOrbitPivotCoords.y
   ])
 
-  useGlobalMouseUp((event: MouseEvent) => {
+  useGlobalMouseUp(({ clientX: x , clientY: y }: MouseEvent) => {
     if (flashlightRef) {
-      setFlashlightRotation(getAngleBetweenPoints(flashlightPivotCoords, {x: event.clientX, y: event.clientY}))
-      setLightLength(getDistanceBetweenPoints(flashlightPivotCoords, {x: event.clientX, y: event.clientY}) - initialFlashlightHeight)
+      setFlashlightRotation(getAngleBetweenPoints(flashlightPivotCoords, {x, y}))
+      setLightLength(getDistanceBetweenPoints(flashlightPivotCoords, {x, y}) - initialFlashlightHeight)
     }
   }, flashlightRef)
 
-  const dragStartHandler: any = (event: MouseEvent) => {
+  const dragStartHandler = (event: React.MouseEvent | React.TouchEvent) => {
     if (!isDragging) {
-      setIsDragging(true)
-      setDragStart({x: event.clientX, y: event.clientY})
+      let x = 0, y = 0
+      
+      if (event.nativeEvent instanceof MouseEvent) {
+        x = event.clientX
+        y = event.clientY
+      }
+
+      if (event.nativeEvent instanceof TouchEvent) {
+        x = event.changedTouches[0].clientX
+        y = event.changedTouches[0].clientY
+      }
+      
       setDragStartCloudOrbitRotation(cloudOrbitRotation)
+      setDragStartMouseAngle(getAngleBetweenPoints(cloudOrbitPivotCoords, {x, y}))
+      setIsDragging(true)
     }
   }
 
-  const dragEndHandler: any = (event: MouseEvent) => {
+  const dragEndHandler = () => {
     if (isDragging) {
       setIsDragging(false)
-      setDragEnd({x: event.clientX, y: event.clientY})
-      setDragStartCloudOrbitRotation(0)
     }
   }
 
-  const dragHandler: any = (event: MouseEvent) => {
+  const dragHandler: any = (event: React.MouseEvent | React.TouchEvent) => {
     if (isDragging) {
+      let x = 0, y = 0
+      
+      if (event.nativeEvent instanceof MouseEvent) {
+        x = event.clientX
+        y = event.clientY
+      }
+
+      if (event.nativeEvent instanceof TouchEvent) {
+        x = event.changedTouches[0].clientX
+        y = event.changedTouches[0].clientY
+      }
+
       setCloudOrbitRotation(
-        dragStartCloudOrbitRotation + 
-        radiansToDegrees(
-          Math.atan2(
-            event.clientY - dragStart.y,
-            event.clientX - dragStart.x
-          )
-        )
+        dragStartCloudOrbitRotation +
+        getAngleBetweenPoints(cloudOrbitPivotCoords, {x, y}) -
+        dragStartMouseAngle
       )
     }
   }
@@ -140,7 +157,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main} onMouseUp={dragEndHandler} onMouseMove={dragHandler}>
+      <main className={styles.main} onMouseUp={dragEndHandler} onMouseMove={dragHandler} onTouchMove={dragHandler} onTouchEnd={dragEndHandler}>
         <div className={styles.stars} data-testid="stars"></div>
         <div className={styles.twinkling} data-testid="twinkling"></div>
 
@@ -159,7 +176,7 @@ const Home: NextPage = () => {
                         ref={c.ref}
                         data-testid={`cloud-${i}`} key={`cloud-${i}`}
                         onClick={(_) => setSelectedCloud(c)}
-                        onMouseDown={dragStartHandler}></div>
+                        onMouseDown={dragStartHandler} onTouchStart={dragStartHandler}></div>
           })}
         </div>
 

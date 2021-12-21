@@ -1,4 +1,4 @@
-import { radiansToDegrees } from "./math-utils"
+import { getAngleBetweenPoints, getDistanceBetweenPoints } from "./math-utils"
 
 export function getCurrentRotation(element: HTMLElement): number {
   const style = window.getComputedStyle(element, null)
@@ -25,19 +25,8 @@ export function getAngleBetweenElements(elementSource: HTMLElement, elementTarge
   return getAngleBetweenPoints({x: x1, y: y1}, {x: x2, y: y2})
 }
 
-export function getAngleBetweenPoints(pointSource: Vector, pointTarget: Vector): number {
-  return (radiansToDegrees(Math.atan2(pointSource.y - pointTarget.y, pointTarget.x - pointSource.x)) - 90) * -1
-}
-
 export function getDistanceBetweenElements(elementSource: HTMLElement, elementTarget: HTMLElement): number {
   const { x: x1, y: y1 } = elementSource.getBoundingClientRect()
   const { x: x2, y: y2 } = elementTarget.getBoundingClientRect()
   return getDistanceBetweenPoints({x: x1, y: y1}, {x: x2, y: y2})
-}
-
-export function getDistanceBetweenPoints(pointSource: Vector, pointTarget: Vector): number {
-  return Math.sqrt(
-    Math.pow(pointSource.x - pointTarget.x, 2) +
-    Math.pow(pointSource.y - pointTarget.y, 2)
-  )
 }
