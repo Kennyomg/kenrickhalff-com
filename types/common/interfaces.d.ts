@@ -14,4 +14,5 @@ interface Cloud {
   parent: Cloud | false;
   private: boolean;
   ref?: RefObject<HTMLDivElement>;
+  content?: JSX.Element;
 }

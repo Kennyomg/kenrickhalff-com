@@ -4,8 +4,7 @@ import Image from 'next/image'
 import { useState, useRef, useEffect, createRef } from 'react'
 import { CloudType } from '../constants/enums'
 import { getAngleBetweenPoints, getDistanceBetweenPoints } from '../lib/math-utils'
-import { radiansToDegrees } from '../lib/math-utils'
-import { useGlobalMouseUp } from '../lib/react-hooks'
+import { useGlobalMouseDown, useGlobalMouseUp } from '../lib/react-hooks'
 import styles from '../styles/Home.module.css'
 import { Cloud, Vector } from '../types/common/interfaces'
 
@@ -33,6 +32,7 @@ const testClouds: Cloud[] = [
     parent: false,
     private: false,
     ref: createRef(),
+    content: <div><h1>This is the stars content page!</h1><sub>neat, right?</sub></div>
   },
   {
     img: { 
@@ -45,6 +45,7 @@ const testClouds: Cloud[] = [
     parent: false,
     private: false,
     ref: createRef(),
+    content: <div><h1>This is the twinkling post page!</h1><sub>Let&apos;s go!</sub></div>
   }
 ]
 
@@ -62,6 +63,7 @@ const Home: NextPage = () => {
   const [ clouds, setClouds ] = useState<Cloud[]>(testClouds)
 
   const [ selectedCloud, setSelectedCloud] = useState<Cloud | false>(false)
+  const [ isMouseDown, setIsMouseDown ] = useState(false)
   const [ isDragging, setIsDragging ] = useState(false)
   const [ dragStartCloudOrbitRotation, setDragStartCloudOrbitRotation ] = useState(0)
   const [ dragStartMouseAngle, setDragStartMouseAngle ] = useState(0)
@@ -94,15 +96,19 @@ const Home: NextPage = () => {
     cloudOrbitRadius, cloudOrbitPivotCoords.x, cloudOrbitPivotCoords.y
   ])
 
-  useGlobalMouseUp(({ clientX: x , clientY: y }: MouseEvent) => {
+  useGlobalMouseDown(({ clientX: x , clientY: y }: MouseEvent) => {
     if (flashlightRef) {
       setFlashlightRotation(getAngleBetweenPoints(flashlightPivotCoords, {x, y}))
       setLightLength(getDistanceBetweenPoints(flashlightPivotCoords, {x, y}) - initialFlashlightHeight)
     }
   }, flashlightRef)
 
-  const dragStartHandler = (event: React.MouseEvent | React.TouchEvent) => {
-    if (!isDragging) {
+  function mouseDownHandler() {
+    if (!isMouseDown) setIsMouseDown(true)
+  }
+
+  function dragStartHandler(event: React.MouseEvent | React.TouchEvent) {
+    if (!isDragging && isMouseDown) {
       let x = 0, y = 0
       
       if (event.nativeEvent instanceof MouseEvent) {
@@ -121,14 +127,20 @@ const Home: NextPage = () => {
     }
   }
 
-  const dragEndHandler = () => {
+  function dragEndHandler() {
     if (isDragging) {
       setIsDragging(false)
     }
+
+    if (isMouseDown) {
+      setIsMouseDown(false)
+    }
   }
 
-  const dragHandler: any = (event: React.MouseEvent | React.TouchEvent) => {
-    if (isDragging) {
+  function dragHandler(event: React.MouseEvent | React.TouchEvent): any {
+    dragStartHandler(event)
+
+    if (isDragging && isMouseDown) {
       let x = 0, y = 0
       
       if (event.nativeEvent instanceof MouseEvent) {
@@ -146,6 +158,9 @@ const Home: NextPage = () => {
         getAngleBetweenPoints(cloudOrbitPivotCoords, {x, y}) -
         dragStartMouseAngle
       )
+      
+      setFlashlightRotation(getAngleBetweenPoints(flashlightPivotCoords, {x, y}))
+      setLightLength(getDistanceBetweenPoints(flashlightPivotCoords, {x, y}) - initialFlashlightHeight)
     }
   }
 
@@ -171,22 +186,39 @@ const Home: NextPage = () => {
             const left = cloudOrbitRadius * Math.sin(cloudOffsetInDegrees * i * -1) + cloudOrbitRadius,
                   top = cloudOrbitRadius * Math.cos(cloudOffsetInDegrees * i + Math.PI) + cloudOrbitRadius,
                   transform = `translate(-50%, -50%) rotate(${-cloudOrbitRotation}deg)`;
-            return <div className={`${styles.cloud} ${c === selectedCloud && styles.selected}`}
+
+            if (c === selectedCloud) {
+              return <div className={`${styles.cloud} ${styles.selected}`}
                         style={{left, top, transform}}
                         ref={c.ref}
                         data-testid={`cloud-${i}`} key={`cloud-${i}`}
-                        onClick={(_) => setSelectedCloud(c)}
-                        onMouseDown={dragStartHandler} onTouchStart={dragStartHandler}></div>
+                        onMouseUp={(_) => !isDragging && setSelectedCloud(false)}
+                        onMouseDown={mouseDownHandler} onTouchStart={mouseDownHandler}></div>
+              
+            }
+            
+            return <div className={`${styles.cloud}`}
+                        style={{left, top, transform}}
+                        ref={c.ref}
+                        data-testid={`cloud-${i}`} key={`cloud-${i}`}
+                        onMouseUp={(_) => !isDragging && setSelectedCloud(c)}
+                        onMouseDown={mouseDownHandler} onTouchStart={mouseDownHandler}></div>
+              
           })}
         </div>
 
         <div className={styles.silhouette}>
           <Image src="/silhouette.svg" alt="Silhouette of Kenrick Halff looking into the night sky" width={50} height={200} />
-          <div className={styles.flashlight} style={{transform: `rotate(${flashlightRotation}deg)`}} data-testid="flashlight" ref={flashlightRef}>
+          <div className={`${styles.flashlight} ${!isDragging && styles.animate}`} style={{transform: `rotate(${flashlightRotation}deg)`}} data-testid="flashlight" ref={flashlightRef}>
             <Image src="/flashlight.svg" alt="Flashlight pointing at the clouds held by Kenrick Halff" width={20} height={44} data-testid="flashlight-svg" />
-            <div className={styles.light} style={{height: `${lightLength}px`}}></div>
+            <div className={`${styles.light} ${!isDragging && styles.animate}`} style={{height: `${lightLength}px`}}></div>
           </div>
         </div>
+
+        {(selectedCloud && (selectedCloud.type === CloudType.CONTENT || selectedCloud.type === CloudType.POST)) && <div className={`${styles.cloud} ${styles.fullscreen}`}
+                            onMouseUp={() => setSelectedCloud(false)}>
+                              {selectedCloud.content}
+                         </div>}
       </main>
 
       <footer className={styles.footer}>

@@ -1,4 +1,4 @@
-import { useWindowEvent, useGlobalMouseUp, useGlobalMouseMove } from './react-hooks'
+import { useWindowEvent, useGlobalMouseUp, useGlobalMouseMove, useGlobalMouseDown } from './react-hooks'
 import { renderHook } from '@testing-library/react-hooks'
 import { fireEvent } from '@testing-library/react'
 
@@ -16,6 +16,13 @@ describe('Custom react hooks', () => {
   it('should useGlobalMouseUp', () => {
     renderHook(() => useGlobalMouseUp(mockCallback))
     fireEvent.mouseUp(window)
+
+    expect(mockCallback).toBeCalled()
+  })
+
+  it('should useGlobalMouseDown', () => {
+    renderHook(() => useGlobalMouseDown(mockCallback))
+    fireEvent.mouseDown(window)
 
     expect(mockCallback).toBeCalled()
   })

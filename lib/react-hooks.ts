@@ -10,6 +10,9 @@ export const useWindowEvent = (event: string, callback: any, dep?: any) => {
 export const useGlobalMouseUp = (callback: any, dep?: any) => {
   return useWindowEvent('mouseup', callback, dep)
 }
+export const useGlobalMouseDown = (callback: any, dep?: any) => {
+  return useWindowEvent('mousedown', callback, dep)
+}
 
 export const useGlobalMouseMove = (callback: any, dep?: any) => {
   return useWindowEvent('mousemove', callback, dep)
