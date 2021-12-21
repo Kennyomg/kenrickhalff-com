@@ -106,13 +106,13 @@ const Home: NextPage = () => {
       let x = 0, y = 0
       
       if (event.nativeEvent instanceof MouseEvent) {
-        x = event.clientX
-        y = event.clientY
+        x = event.nativeEvent.clientX
+        y = event.nativeEvent.clientY
       }
 
       if (event.nativeEvent instanceof TouchEvent) {
-        x = event.changedTouches[0].clientX
-        y = event.changedTouches[0].clientY
+        x = event.nativeEvent.changedTouches[0].clientX
+        y = event.nativeEvent.changedTouches[0].clientY
       }
       
       setDragStartCloudOrbitRotation(cloudOrbitRotation)
@@ -132,13 +132,13 @@ const Home: NextPage = () => {
       let x = 0, y = 0
       
       if (event.nativeEvent instanceof MouseEvent) {
-        x = event.clientX
-        y = event.clientY
+        x = event.nativeEvent.clientX
+        y = event.nativeEvent.clientY
       }
 
       if (event.nativeEvent instanceof TouchEvent) {
-        x = event.changedTouches[0].clientX
-        y = event.changedTouches[0].clientY
+        x = event.nativeEvent.changedTouches[0].clientX
+        y = event.nativeEvent.changedTouches[0].clientY
       }
 
       setCloudOrbitRotation(
