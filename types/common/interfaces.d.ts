@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { CloudType } from "../../constants/enums";
+import { CloudType } from "../../lib/constants/enums";
 
 interface Vector {
   x: number;

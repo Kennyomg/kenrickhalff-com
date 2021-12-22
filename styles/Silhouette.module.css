@@ -1,0 +1,61 @@
+
+
+.silhouette {
+  position: absolute;
+  bottom: 200px;
+  left: 1rem;
+  z-index: 5;
+}
+
+/* FIX: bottom: 200px; is too high for iPhone SE */
+@media only screen and (max-width: 400px) {
+  .silhouette {
+    bottom: 2rem;
+  }
+}
+
+.silhouette::after {
+  content: "";
+  display: block;
+  background-color: black;
+  border-radius: 50%;
+  
+  position: absolute;
+  bottom: 30px;
+  transform: translate(-50%, 100%);
+
+  width: calc( 100vw / ( var(--phi) * 2 ) );
+  min-width: 400px;
+  
+  height: calc( 100vw / ( var(--phi) * 2 ) );
+  min-height: 400px;
+  
+}
+
+.flashlight {
+  position: absolute;
+  top: -15px;
+  right: 0;
+  height: 100px;
+  transform-origin: bottom;
+}
+
+.flashlight.animate {
+  transition: transform .5s ease-in-out;
+}
+
+.light {
+  display: block;
+  width: 20px;
+  height: 500px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(255, 255, 0, .5);
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+.light.animate {
+  transition: height .5s ease-in-out;
+}

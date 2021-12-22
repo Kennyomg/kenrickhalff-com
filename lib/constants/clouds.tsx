@@ -1,14 +1,26 @@
 import { createRef } from "react";
-import { Cloud } from "../types/common/interfaces";
+import { Cloud } from "../../types/common/interfaces";
 import { CloudType } from "./enums";
 
 export const clouds: Cloud[] = [
+  {
+    img: {
+      url: '/kenrick.png',
+      alt: 'Picture of Kenrick Halff'
+    },
+    slug: '/about',
+    title: 'About Kenrick',
+    type: CloudType.CONTENT,
+    parent: false,
+    private: false,
+    ref: createRef()
+  },
   {
     img: { 
       url: '/moon.png',
       alt: 'The moon in a cloud'
     },
-    slug: 'the-moon',
+    slug: '/the-moon',
     title: 'The Moon',
     type: CloudType.NAV,
     parent: false,
@@ -20,7 +32,7 @@ export const clouds: Cloud[] = [
       url: '/stars.png',
       alt: 'The stars in a cloud'
     },
-    slug: 'the-stars',
+    slug: '/the-stars',
     title: 'The Stars',
     type: CloudType.CONTENT,
     parent: false,
@@ -33,7 +45,7 @@ export const clouds: Cloud[] = [
       url: '/twinkling.png',
       alt: 'Twinkling in a cloud'
     },
-    slug: 'twinkling',
+    slug: '/twinkling',
     title: 'Twinkling',
     type: CloudType.POST,
     parent: false,

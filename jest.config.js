@@ -1,6 +1,7 @@
 module.exports = {
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
+    '!**/*.mdx',
     '!**/*.d.ts',
     '!**/node_modules/**',
     '!**/.next/**',
@@ -30,7 +31,7 @@ module.exports = {
     '<rootDir>/e2e/',
     '<rootDir>/playwright-report/',
     '<rootDir>/.github/',
-    '<rootDir>/test-results'
+    '<rootDir>/test-results/'
   ],
   testEnvironment: 'jsdom',
   transform: {
@@ -44,10 +45,11 @@ module.exports = {
     '/.next/',
     '/.vercel/',
     '^.+\\.module\\.(css|sass|scss)$',
+    '^.+\\.(md|mdx)$',
     '/e2e/',
     '/playwright-report/',
     '/.github/',
-    '<rootDir>/test-results'
+    '/test-results/'
   ],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
 }

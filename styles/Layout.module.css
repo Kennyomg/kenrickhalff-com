@@ -1,0 +1,82 @@
+.container {
+  padding: 0 0;
+  
+  width: 100vw;
+  min-width: 100vw;
+  max-width: 100vw;
+  
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+
+  overflow: hidden;
+}
+
+.main {
+  position: relative;
+  
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+ 
+  background: var(--night-sky-blue);
+}
+
+.main::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background: var(--moon-light-gradient);
+  z-index: 2;
+}
+
+.moon {
+  position: absolute;
+  top: var(--moon-position-top);
+  right: var(--moon-position-right);
+  z-index: 3;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  z-index: 5;
+  display: flex;
+  flex: 1;
+  padding: .5rem 0;
+  background-color: black;
+  color: gold;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes move-twink-back {
+  from {background-position:0 0;}
+  to {background-position:-10000px 5000px;}
+}
+
+.stars, .twinkling {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+.stars {
+  background: transparent url(/stars.png) repeat top center;
+  z-index:2;
+}
+
+.twinkling{
+  background:transparent url(/twinkling.png) repeat top center;
+  z-index:2;
+
+  animation:move-twink-back 200s linear infinite;
+}
