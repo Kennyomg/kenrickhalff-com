@@ -3,51 +3,12 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useState, useRef, useEffect, createRef } from 'react'
 import { CloudType } from '../constants/enums'
+import { clouds as defaultClouds } from '../constants/clouds'
 import { getAngleBetweenPoints, getDistanceBetweenPoints } from '../lib/math-utils'
 import { useGlobalMouseDown, useGlobalMouseUp } from '../lib/react-hooks'
 import styles from '../styles/Home.module.css'
 import { Cloud, Vector } from '../types/common/interfaces'
 
-const testClouds: Cloud[] = [
-  {
-    img: { 
-      url: '/moon.png',
-      alt: 'The moon in a cloud'
-    },
-    slug: 'the-moon',
-    title: 'The Moon',
-    type: CloudType.NAV,
-    parent: false,
-    private: false,
-    ref: createRef(),
-  },
-  {
-    img: { 
-      url: '/stars.png',
-      alt: 'The stars in a cloud'
-    },
-    slug: 'the-stars',
-    title: 'The Stars',
-    type: CloudType.CONTENT,
-    parent: false,
-    private: false,
-    ref: createRef(),
-    content: <div><h1>This is the stars content page!</h1><sub>neat, right?</sub></div>
-  },
-  {
-    img: { 
-      url: '/twinkling.png',
-      alt: 'Twinkling in a cloud'
-    },
-    slug: 'twinkling',
-    title: 'Twinkling',
-    type: CloudType.POST,
-    parent: false,
-    private: false,
-    ref: createRef(),
-    content: <div><h1>This is the twinkling post page!</h1><sub>Let&apos;s go!</sub></div>
-  }
-]
 
 const Home: NextPage = () => {
   const flashlightRef = useRef<HTMLDivElement>(null)
@@ -60,7 +21,7 @@ const Home: NextPage = () => {
   const [ cloudOrbitRotation, setCloudOrbitRotation ] = useState(0)
   const [ cloudOrbitRadius, setCloudOrbitRadius ] = useState(0)
   const [ cloudOrbitPivotCoords, setCloudOrbitPivotCoords ] = useState<Vector>({x: 0, y: 0})
-  const [ clouds, setClouds ] = useState<Cloud[]>(testClouds)
+  const [ clouds, setClouds ] = useState<Cloud[]>(defaultClouds)
 
   const [ selectedCloud, setSelectedCloud] = useState<Cloud | false>(false)
   const [ isMouseDown, setIsMouseDown ] = useState(false)
