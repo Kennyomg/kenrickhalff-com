@@ -33,7 +33,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
   const [ cloudOrbitPivotCoords, setCloudOrbitPivotCoords ] = useState<Vector>({x: 0, y: 0})
   const [ clouds, setClouds ] = useState<Cloud[]>(defaultClouds)
 
-  const [ selectedCloud, setSelectedCloud] = useState<Cloud | false>(clouds.find((c) => c.slug === router.pathname ) || false)
+  const [ selectedCloud, setSelectedCloud] = useState<Cloud | false>(clouds.find((c) => router && c.slug === router.pathname ) || false)
   const [ isMouseDown, setIsMouseDown ] = useState(false)
   const [ isDragging, setIsDragging ] = useState(false)
   const [ dragStartCloudOrbitRotation, setDragStartCloudOrbitRotation ] = useState(0)

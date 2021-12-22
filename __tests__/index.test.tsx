@@ -1,11 +1,11 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import Home from '../pages/index'
 import { getCurrentRotation } from '../lib/dom-utils'
+import Layout from '../components/Layout'
 
-describe('Home', () => {
+describe('Layout', () => {
   beforeEach(() => {
-    render(<Home />)
+    render(<Layout />)
   })
 
   it('renders a footer', () => {
