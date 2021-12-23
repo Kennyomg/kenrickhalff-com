@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { getCurrentRotation } from '../lib/dom-utils'
+import userEvent from '@testing-library/user-event'
+import { getAngleBetweenElements, getCurrentRotation, getDistanceBetweenElements } from '../lib/dom-utils'
 import Layout from '../components/Layout'
 
 describe('Layout', () => {
@@ -63,11 +64,52 @@ describe('Layout', () => {
     expect(cloud).toBeInTheDocument()
   })
 
-  it.todo('separates the clouds with an specified offset')
+  it('separates the clouds with an specified offset', () => {
+    const cloud0 = screen.getByTestId('cloud-0'),
+          cloud1 = screen.getByTestId('cloud-1'),
+          cloud2 = screen.getByTestId('cloud-2')
 
-  it.todo('selects the first cloud')
+    expect(getDistanceBetweenElements(cloud0, cloud1)).toBe(getDistanceBetweenElements(cloud1, cloud2))
+  })
 
-  it.todo('points the flashlight at the selected cloud')
+  it('selects the first cloud', () => {
+    const cloud = screen.getByTestId('cloud-0')
 
-  it.todo('selects the next cloud')
+    userEvent.click(cloud)
+
+    expect(screen.getByTestId('cloud-0-selected')).toEqual(cloud)
+
+    expect(() => screen.getByTestId('cloud-0')).toThrowError('Unable to find an element by: [data-testid="cloud-0"]')
+
+    userEvent.click(cloud)
+
+    expect(screen.getByTestId('cloud-0')).toEqual(cloud)
+  })
+
+  it('points the flashlight at the selected cloud', () => {
+    const cloud = screen.getByTestId('cloud-0')
+
+    userEvent.click(cloud)
+
+    const flashlight = screen.getByTestId('flashlight')
+
+    expect(getCurrentRotation(flashlight)).toBe(getAngleBetweenElements(flashlight, cloud))
+  })
+
+  it('selects the next cloud', () => {
+    const cloud0 = screen.getByTestId('cloud-0'),
+          cloud1 = screen.getByTestId('cloud-1')
+
+    userEvent.click(cloud0)
+
+    expect(screen.getByTestId('cloud-0-selected')).toEqual(cloud0)
+    expect(() => screen.getByTestId('cloud-0')).toThrowError('Unable to find an element by: [data-testid="cloud-0"]')
+    expect(() => screen.getByTestId('cloud-1-selected')).toThrowError('Unable to find an element by: [data-testid="cloud-1-selected"]')
+
+    userEvent.click(cloud1)
+
+    expect(screen.getByTestId('cloud-1-selected')).toEqual(cloud1)
+    expect(() => screen.getByTestId('cloud-1')).toThrowError('Unable to find an element by: [data-testid="cloud-1"]')
+    expect(() => screen.getByTestId('cloud-0-selected')).toThrowError('Unable to find an element by: [data-testid="cloud-0-selected"]')
+  })
 })

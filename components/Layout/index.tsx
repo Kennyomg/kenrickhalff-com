@@ -154,6 +154,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
 
         <CloudOrbit
           clouds={clouds}
+          offset={6}
           radius={cloudOrbitRadius}
           rotation={cloudOrbitRotation}
           selectedCloud={selectedCloud}
