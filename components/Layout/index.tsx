@@ -15,12 +15,9 @@ import cloudStyles from '../../styles/CloudOrbit.module.css'
 import { useRouter } from 'next/router'
 
 interface LayoutProps {
-  meta?: {
-    title?: string;
-  }
 }
 
-const Layout: FC<PropsWithChildren<LayoutProps>> = ({children, meta}) => {
+const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
   const router = useRouter()
 
   const flashlightRef = useRef<HTMLDivElement>(null)
