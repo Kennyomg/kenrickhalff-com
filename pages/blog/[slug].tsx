@@ -1,9 +1,18 @@
 import { serialize } from "next-mdx-remote/serialize"
-import { MDXRemote } from 'next-mdx-remote'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import Head from "next/head"
+
+type PostPageProps = {
+  frontMatter: {
+    [key: string] : any
+    title: string
+  }
+  slug: string
+  mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>
+}
 
 export const getStaticPaths = async () => {
   const files = fs.readdirSync(path.join('posts'))
@@ -20,7 +29,7 @@ export const getStaticPaths = async () => {
   }
 }
 
-export const getStaticProps = async ({ params: { slug }}: {params: { slug: string }}) => {
+export const getStaticProps = async ({ params: { slug } }: { params: { slug: string } }) => {
   const markdownWithMeta = fs.readFileSync(path.join('posts', slug + '.mdx'), 'utf-8')
 
   const { data: frontMatter, content } = matter(markdownWithMeta)
@@ -35,7 +44,7 @@ export const getStaticProps = async ({ params: { slug }}: {params: { slug: strin
   }
 }
 
-const PostPage = ({ frontMatter: { title }, mdxSource } : { frontMatter: { title: string }, mdxSource: any }) => {
+const PostPage = ({ frontMatter: { title }, mdxSource } : PostPageProps) => {
   return (
     <article>
       <Head>
