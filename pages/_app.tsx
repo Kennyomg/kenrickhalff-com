@@ -4,7 +4,7 @@ import Layout from '../components/Layout'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const meta = pageProps.fontMatter
-  return <Layout meta={meta}><Component {...pageProps} /></Layout>
+  return <Layout><Component {...pageProps} /></Layout>
 }
 
 export default MyApp
