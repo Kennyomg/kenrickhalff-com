@@ -15,10 +15,12 @@ import cloudStyles from '../../styles/CloudOrbit.module.css'
 import { useRouter } from 'next/router'
 
 interface LayoutProps {
-
+  meta?: {
+    title?: string;
+  }
 }
 
-const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
+const Layout: FC<PropsWithChildren<LayoutProps>> = ({children, meta}) => {
   const router = useRouter()
 
   const flashlightRef = useRef<HTMLDivElement>(null)
@@ -139,7 +141,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Portfolio - Kenrick Halff</title>
+        <title>{`Portfolio - Kenrick Halff`}</title>
         <meta name="description" content="Portfolio of a fullstack developer - Websites, apps and games" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

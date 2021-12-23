@@ -20,7 +20,7 @@ export const clouds: Cloud[] = [
       url: '/moon.png',
       alt: 'The moon in a cloud'
     },
-    slug: '/the-moon',
+    slug: '/blog/first-post',
     title: 'The Moon',
     type: CloudType.NAV,
     parent: false,
