@@ -16,3 +16,17 @@ interface Cloud {
   ref?: RefObject<HTMLDivElement>;
   content?: JSX.Element;
 }
+
+interface CloudOrbitProps {
+  clouds: Cloud[]
+  radius: number
+  rotation: number
+  offset: number
+  selectedCloud: Cloud | false
+  setSelectedCloud: Dispatch<SetStateAction<Cloud | false>>
+  isDragging: boolean
+  mouseDownHandler: MouseEventHandler | TouchEventHandler
+}
+
+interface LayoutProps {
+}

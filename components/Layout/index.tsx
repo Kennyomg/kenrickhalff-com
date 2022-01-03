@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import React, { useState, useRef, useEffect, FC, PropsWithChildren } from 'react'
-import { Cloud, Vector } from '../../types/common/interfaces'
+import { Cloud, LayoutProps, Vector } from '../../types/common/interfaces'
 
 import { getAngleBetweenPoints, getDistanceBetweenPoints } from '../../lib/math-utils'
 import { useGlobalMouseDown } from '../../lib/react-hooks'
@@ -13,9 +13,6 @@ import Silhouette from '../Silhouette'
 import styles from '../../styles/Layout.module.css'
 import cloudStyles from '../../styles/CloudOrbit.module.css'
 import { useRouter } from 'next/router'
-
-interface LayoutProps {
-}
 
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
   const router = useRouter()
@@ -140,6 +137,8 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
       <Head>
         <title>{`Portfolio - Kenrick Halff`}</title>
         <meta name="description" content="Portfolio of a fullstack developer - Websites, apps and games" />
+        <meta name="mobile-web-app-capable" content="yes"></meta>
+        <meta name="apple-mobile-web-app-capable" content="yes"></meta>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
