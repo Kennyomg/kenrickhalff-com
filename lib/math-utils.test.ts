@@ -1,4 +1,4 @@
-import { getAngleBetweenPoints, getDistanceBetweenPoints, radiansToDegrees } from "./math-utils"
+import { getAngleBetweenPoints, getDistanceBetweenPoints, PHI, radiansToDegrees } from "./math-utils"
 
 describe('Math utility functions', () => {
   it('should convert radians to degress', () => {
@@ -11,5 +11,9 @@ describe('Math utility functions', () => {
 
   it('should get the angle between 2 points', () => {
     expect(getAngleBetweenPoints({x: 100, y: 200}, {x: 200, y: 100})).toBe(45)
+  })
+
+  it('should know PHI', () => {
+    expect(PHI).toBe(1.618)
   })
 })

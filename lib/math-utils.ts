@@ -12,3 +12,5 @@ export function getDistanceBetweenPoints(pointSource: Vector, pointTarget: Vecto
     Math.pow(pointSource.y - pointTarget.y, 2)
   )
 }
+
+export const PHI = 1.618

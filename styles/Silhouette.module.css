@@ -36,6 +36,11 @@
   right: 0;
   height: 100px;
   transform-origin: bottom;
+  z-index: 1;
+}
+
+.flashlight > span {
+  z-index: 2 !important;
 }
 
 .flashlight.animate {
@@ -44,16 +49,22 @@
 
 .light {
   display: block;
-  width: 20px;
+  width: 200px;
   height: 500px;
   position: absolute;
   top: 0;
   right: 0;
-  background: rgba(255, 255, 0, .5);
-  transform: translateY(-100%);
+  z-index: 1;
+  /* background: rgba(255, 255, 0, .5); */
+  transform: translateY(calc(-100% + 40px)) translateX(calc(50% - 10px));
   pointer-events: none;
+  width: 0; 
+  height: 0; 
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-top: 500px solid #f00;
 }
 
 .light.animate {
-  transition: height .5s ease-in-out;
+  transition: all .5s ease-in-out;
 }

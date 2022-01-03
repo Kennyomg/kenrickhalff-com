@@ -11,7 +11,7 @@ import CloudOrbit from '../CloudOrbit'
 import Silhouette from '../Silhouette'
 
 import styles from '../../styles/Layout.module.css'
-import cloudStyles from '../../styles/CloudOrbit.module.css'
+import cloudStyles from '../../styles/Cloud.module.css'
 import { useRouter } from 'next/router'
 
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {

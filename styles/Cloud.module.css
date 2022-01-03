@@ -1,11 +1,20 @@
 .cloud {
   position: absolute;
-  width: 100px;
-  height: calc(100px / var(--phi));
-  background: white;
+  width: 200px;
+  height: calc(200px / var(--phi));
   z-index: 3;
   cursor: pointer;
   /* inline: transform: translate(-50%, -50%); */
+  overflow:visible;
+}
+
+.cloud svg {
+  overflow:visible;
+  position: relative;
+}
+
+.cloud svg g {
+  transform: translate(-4px, -100px) scaleY(1.5);
 }
 
 .cloud.fullscreen {
@@ -15,10 +24,14 @@
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%);
-
+  background: white;
   padding: 2rem;
 }
 
-.selected {
-  border: 1px solid yellow;
+.cloud:not(.selected) path {
+  stroke: black;
+}
+
+.cloud.selected path {
+  stroke: yellow;
 }
