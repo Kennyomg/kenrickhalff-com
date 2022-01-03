@@ -147,7 +147,9 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
         <div className={styles.stars} data-testid="stars"></div>
         <div className={styles.twinkling} data-testid="twinkling"></div>
 
-        <div className={styles.moon}>
+        <div className={styles.moon} onClick={() => {
+          document.body.requestFullscreen();
+        }}>
           <Image src="/moon.png" alt="Image of the moon" width={100} height={100} />
         </div>
 
