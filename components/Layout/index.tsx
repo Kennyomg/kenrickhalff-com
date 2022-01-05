@@ -12,6 +12,7 @@ import Silhouette from '../Silhouette'
 
 import styles from '../../styles/Layout.module.css'
 import cloudStyles from '../../styles/Cloud.module.css'
+import buttonStyles from '../../styles/Button.module.css'
 import { useRouter } from 'next/router'
 
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
@@ -165,8 +166,11 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
 
         <Silhouette isDragging={isDragging} rotation={flashlightRotation} length={lightLength} ref={flashlightRef}  />
 
-        {(children && selectedCloud) && <div className={`${cloudStyles.cloud} ${cloudStyles.fullscreen}`} onClick={() => (setSelectedCloud(false), router.back())}>
-            {children}
+        {(children && selectedCloud) && <div className={`${cloudStyles.cloud} ${cloudStyles.fullscreen}`}>
+            <button className={buttonStyles.close} onClick={() => (setSelectedCloud(false), router.push('/'))}></button>
+            <article>
+              {children}
+            </article>
         </div>}
       </main>
 

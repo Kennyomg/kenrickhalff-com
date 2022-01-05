@@ -1,0 +1,26 @@
+.close {
+  appearance: none;
+  border: none;
+  background: none;
+}
+
+.close {
+  background: red;
+  height: 2rem;
+  position: relative;
+  width: 12px;
+  transform: rotate(45deg);
+  cursor: pointer;
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
+}
+.close:after {
+  background: red;
+  content: "";
+  height: 12px;
+  left: calc((1rem - 6px) * -1);
+  position: absolute;
+  top: calc(1rem - 6px);
+  width: 2rem;
+}

@@ -31,3 +31,19 @@ a {
   box-sizing: border-box;
   user-select: none;
 }
+
+h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+
+article {
+  overflow-y: auto;
+  height: calc(100% - 2rem);
+  width: 100%;
+  margin-top: 2rem;
+}
+
+article ul {
+  list-style: none;
+}

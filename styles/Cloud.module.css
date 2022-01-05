@@ -26,6 +26,8 @@
   transform: translate(-50%, -50%);
   background: white;
   padding: 2rem;
+  cursor: auto;
+  z-index: 5;
 }
 
 .cloud:not(.selected) path {
