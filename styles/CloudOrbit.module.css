@@ -4,7 +4,7 @@
   height: calc(100vw / var(--phi) * 3);
   border-radius: 50%;
   border: 1px solid white;
-  top: 100vh;
+  top: 90vh;
   left: 0;
   z-index: 3;
   /* inline: transform: translate(-50%, -50%); */

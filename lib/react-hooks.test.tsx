@@ -33,4 +33,6 @@ describe('Custom react hooks', () => {
 
     expect(mockCallback).toBeCalled()
   })
+
+  it.todo('should useWindowSize on resize event')
 })

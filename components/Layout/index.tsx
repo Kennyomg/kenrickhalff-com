@@ -1,7 +1,8 @@
+import React, { useState, useRef, useEffect, FC, PropsWithChildren } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import React, { useState, useRef, useEffect, FC, PropsWithChildren } from 'react'
-import { Cloud, LayoutProps, Vector } from '../../types/common/interfaces'
+import { useRouter } from 'next/router'
+import { isMobile } from 'react-device-detect'
 
 import { getAngleBetweenPoints, getDistanceBetweenPoints } from '../../lib/math-utils'
 import { useGlobalMouseDown } from '../../lib/react-hooks'
@@ -13,7 +14,8 @@ import Silhouette from '../Silhouette'
 import styles from '../../styles/Layout.module.css'
 import cloudStyles from '../../styles/Cloud.module.css'
 import buttonStyles from '../../styles/Button.module.css'
-import { useRouter } from 'next/router'
+
+import { Cloud, LayoutProps, Vector } from '../../types/common/interfaces'
 
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
   const router = useRouter()
@@ -45,7 +47,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
     }
 
     if (!initialFlashlightHeight) {
-      setInitialFlashlightHeight(flashlightRect.height)
+      setInitialFlashlightHeight(flashlightRect.height - 40 /* minus the overlap of the flashlight and light */)
     }
 
     const cloudOrbitRect = cloudOrbitRef.current?.getBoundingClientRect() || new DOMRect()
@@ -53,7 +55,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
     if (!cloudOrbitPivotCoords.x && !cloudOrbitPivotCoords.y) {
       const pivot: Vector = { x: cloudOrbitRect.left + cloudOrbitRect.width / 2, y: cloudOrbitRect.top + cloudOrbitRect.height / 2}
       setCloudOrbitPivotCoords(pivot)
-      setCloudOrbitRotation(20)
+      setCloudOrbitRotation(isMobile ? 20 : 35)
     }
 
     if (!cloudOrbitRadius) {
