@@ -1,3 +1,19 @@
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px) { @content; }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1800px) { @content; }
+}
+
 :root {
   --phi: 1.618;
   --night-sky-blue: rgb(12, 20, 69, 1);
@@ -11,6 +27,14 @@
   --moon-light-gradient-color-4: rgb(12, 20, 69, 0);
   --moon-light-gradient: radial-gradient(circle farthest-side at var(--moon-position), var(--moon-light-gradient-color-1) 13%, var(--moon-light-gradient-color-2) 21%, var(--moon-light-gradient-color-3) 34%, var(--moon-light-gradient-color-4) 55%);
   --flashlight-color: rgba(255, 255, 0, .5);
+
+  --mobile-s: 320px;
+  --mobile-m: 375px;
+  --mobile-l: 425px;
+  --tablet: 768px;
+  --laptop: 1024px;
+  --laptop-l: 1440px;
+  --4k: 2560px;
 }
 
 html,
@@ -42,8 +66,33 @@ article {
   height: calc(100% - 2rem);
   width: 100%;
   margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+article *:not(p) {
+  width: 100%;
 }
 
 article ul {
   list-style: none;
+}
+
+article p {
+  width: 100%;
+  margin-right: auto;
+}
+
+@include for-tablet-landscape-up {
+  article p {
+    width: calc(50% - 3rem);
+  }
+}
+
+@include for-tablet-landscape-up {
+  article {
+    padding: 0 3rem;
+  }
 }

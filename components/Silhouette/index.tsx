@@ -1,5 +1,5 @@
 import { FC, forwardRef, PropsWithRef, Ref } from 'react'
-import styles from '../../styles/Silhouette.module.css'
+import styles from '../../styles/Silhouette.module.scss'
 import Image from 'next/image'
 
 interface SilhouetteProps {

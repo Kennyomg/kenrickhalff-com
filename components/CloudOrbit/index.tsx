@@ -1,7 +1,7 @@
 import { NextRouter, useRouter } from 'next/router';
 import { Dispatch, forwardRef, LegacyRef, MouseEventHandler, SetStateAction, TouchEventHandler } from 'react'
 import { useWindowSize } from '../../lib/react-hooks';
-import styles from '../../styles/CloudOrbit.module.css'
+import styles from '../../styles/CloudOrbit.module.scss'
 import { Cloud, CloudOrbitProps } from '../../types/common/interfaces';
 import { generateCloud } from './generate-cloud';
 

@@ -45,15 +45,13 @@ export const getStaticProps = async ({ params: { slug } }: { params: { slug: str
 }
 
 const PostPage = ({ frontMatter: { title }, mdxSource } : PostPageProps) => {
-  return (
-    <article>
+  return (<>
       <Head>
         <title>{`${title} - Kenrick Halff`}</title>
       </Head>
       <h1>{title}</h1>
       <MDXRemote {...mdxSource} />
-    </article>
-  )
+  </>)
 }
 
 export default PostPage

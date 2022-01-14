@@ -11,9 +11,9 @@ import { clouds as defaultClouds } from '../../lib/constants/clouds'
 import CloudOrbit from '../CloudOrbit'
 import Silhouette from '../Silhouette'
 
-import styles from '../../styles/Layout.module.css'
-import cloudStyles from '../../styles/Cloud.module.css'
-import buttonStyles from '../../styles/Button.module.css'
+import styles from '../../styles/Layout.module.scss'
+import cloudStyles from '../../styles/Cloud.module.scss'
+import buttonStyles from '../../styles/Button.module.scss'
 
 import { Cloud, LayoutProps, Vector } from '../../types/common/interfaces'
 

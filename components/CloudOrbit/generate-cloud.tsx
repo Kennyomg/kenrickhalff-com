@@ -1,7 +1,7 @@
 import { NextRouter } from "next/router";
 import { Dispatch, SetStateAction, MouseEventHandler, TouchEventHandler } from "react";
 import { PHI } from "../../lib/math-utils";
-import styles from '../../styles/Cloud.module.css'
+import styles from '../../styles/Cloud.module.scss'
 import { Cloud, CloudProps } from "../../types/common/interfaces";
 
 interface CloudSvgProps {
