@@ -1,5 +1,6 @@
 import { serialize } from "next-mdx-remote/serialize"
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import Image from 'next/image'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
@@ -13,6 +14,8 @@ type PostPageProps = {
   slug: string
   mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>
 }
+
+const components = { Image }
 
 export const getStaticPaths = async () => {
   const files = fs.readdirSync(path.join('posts'))
@@ -50,7 +53,7 @@ const PostPage = ({ frontMatter: { title }, mdxSource } : PostPageProps) => {
         <title>{`${title} - Kenrick Halff`}</title>
       </Head>
       <h1>{title}</h1>
-      <MDXRemote {...mdxSource} />
+      <MDXRemote {...mdxSource} components={components} />
   </>)
 }
 
