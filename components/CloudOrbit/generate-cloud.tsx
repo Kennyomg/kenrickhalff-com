@@ -25,7 +25,7 @@ const CloudSvg: React.FC<CloudSvgProps> = ({width}) => (
         <stop offset="0%" stopColor="var(--moon-light-gradient-color-1)"/>
         <stop offset="50%" stopColor="var(--moon-light-gradient-color-2)" stopOpacity="1"/>
         <stop offset="75%" stopColor="var(--moon-light-gradient-color-3)" stopOpacity="1"/>
-        <stop offset="100%" stopColor="var(--moon-light-gradient-color-4)" stopOpacity="0"/>
+        <stop offset="100%" stopColor="var(--moon-light-gradient-color-3)" stopOpacity="0"/>
       </radialGradient >
     </defs>
     <g filter="url(#f1)">

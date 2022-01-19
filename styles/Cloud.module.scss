@@ -58,4 +58,7 @@
     transform: translate(-50%, -50%);
     text-align: center;
     font-family: 'Arial Black';
+    color: transparent;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
 }
