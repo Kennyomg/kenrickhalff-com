@@ -149,18 +149,6 @@ export const clouds: Cloud[] = [
   },
   {
     img: { 
-      url: '/3d-game-engine.png',
-      alt: '3D Game Engine'
-    },
-    slug: '/blog/3d-game-engine',
-    title: '3D Game Engine',
-    type: CloudType.POST,
-    parent: false,
-    private: false,
-    ref: createRef()
-  },
-  {
-    img: { 
       url: '/kennick-games.png',
       alt: 'Kennick Games'
     },
