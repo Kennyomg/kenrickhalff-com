@@ -8,7 +8,7 @@ interface Vector {
 
 interface Cloud {
   img: { url: string, alt: string}
-  slug: string
+  slug?: string
   title: string
   type: CloudType
   parent: Cloud | false
