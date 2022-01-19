@@ -46,6 +46,10 @@ body {
   overscroll-behavior-y: contain;
 }
 
+h1, h2, h3, h4, footer {
+  font-family: Arial Black, Helvetica, sans-serif;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -70,6 +74,7 @@ article {
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
+  color: var(--night-sky-blue);
 }
 
 article *:not(p) {
@@ -83,6 +88,15 @@ article ul {
 article p {
   width: 100%;
   margin-right: auto;
+}
+
+article a {
+  color: var(--moon-light-gradient-color-2);
+  cursor: pointer;
+}
+
+article a:hover {
+  text-decoration: underline;
 }
 
 @include for-tablet-landscape-up {

@@ -1,4 +1,3 @@
-
 @mixin for-tablet-portrait-up {
   @media (min-width: 600px) { @content; }
 }
@@ -44,9 +43,19 @@
 }
 
 .cloud:not(.selected) path {
-  stroke: black;
+  stroke: transparent;
 }
 
 .cloud.selected path {
   stroke: yellow;
+}
+
+.title {
+    font-size: 1.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: 'Arial Black';
 }

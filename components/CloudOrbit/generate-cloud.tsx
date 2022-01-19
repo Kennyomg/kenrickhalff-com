@@ -48,7 +48,10 @@ export const generateCloud = ({rotation, radius, offset, selectedCloud, mouseDow
               ref={c.ref}
               data-testid={`cloud-${i}-selected`} key={`cloud-${i}`}
               onMouseUp={(_) => !isDragging && setSelectedCloud(false)}
-              onMouseDown={mouseDownHandler as MouseEventHandler} onTouchStart={mouseDownHandler as TouchEventHandler}><CloudSvg width={200} /></div>
+              onMouseDown={mouseDownHandler as MouseEventHandler} onTouchStart={mouseDownHandler as TouchEventHandler}>
+                <CloudSvg width={200} />
+                <div className={`${styles.title}`}>{c.title}</div>
+            </div>
     
   }
   
@@ -57,6 +60,9 @@ export const generateCloud = ({rotation, radius, offset, selectedCloud, mouseDow
               ref={c.ref}
               data-testid={`cloud-${i}`} key={`cloud-${i}`}
               onMouseUp={(_) => !isDragging && (setSelectedCloud(c), router?.push(c.slug))}
-              onMouseDown={mouseDownHandler as MouseEventHandler} onTouchStart={mouseDownHandler as TouchEventHandler}><CloudSvg width={200} /></div>
+              onMouseDown={mouseDownHandler as MouseEventHandler} onTouchStart={mouseDownHandler as TouchEventHandler}>
+                <CloudSvg width={200} />
+                <div className={`${styles.title}`}>{c.title}</div>
+          </div>
     
 }
