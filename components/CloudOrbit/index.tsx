@@ -1,8 +1,8 @@
-import { NextRouter, useRouter } from 'next/router';
-import { Dispatch, forwardRef, LegacyRef, MouseEventHandler, SetStateAction, TouchEventHandler } from 'react'
+import { useRouter } from 'next/router';
+import { forwardRef } from 'react'
 import { useWindowSize } from '../../lib/react-hooks';
 import styles from '../../styles/CloudOrbit.module.scss'
-import { Cloud, CloudOrbitProps } from '../../types/common/interfaces';
+import { CloudOrbitProps } from '../../types/common/interfaces';
 import { generateCloud } from './generate-cloud';
 
 const CloudOrbit = forwardRef<HTMLDivElement, CloudOrbitProps>(({ clouds, offset, radius, rotation, selectedCloud, setSelectedCloud, isDragging, mouseDownHandler }, ref) => {

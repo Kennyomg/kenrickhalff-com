@@ -1,4 +1,5 @@
 import { RefObject } from "react"
+import { Url } from "next/router"
 import { CloudType } from "../../lib/constants/enums"
 
 interface Vector {
@@ -8,7 +9,7 @@ interface Vector {
 
 interface Cloud {
   img: { url: string, alt: string}
-  slug?: string
+  slug?: string | Url
   title: string
   type: CloudType
   parent: Cloud | false

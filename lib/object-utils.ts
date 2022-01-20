@@ -18,4 +18,5 @@ export const isEqual = (obj1: any, obj2: any) => {
 
   return true
 }
+
 export const isObject = (object: Object) => object != null && typeof object === 'object'

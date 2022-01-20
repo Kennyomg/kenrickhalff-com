@@ -134,6 +134,11 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
       setLightLength(getDistanceBetweenPoints(flashlightPivotCoords, {x, y}) - initialFlashlightHeight)
     }
   }
+  let currentCloudIndex = -1
+
+  if (selectedCloud) {
+    currentCloudIndex = clouds.findIndex(c => c.slug === selectedCloud.slug)
+  }
 
   return (
     <div className={styles.container}>
@@ -157,7 +162,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
 
         <CloudOrbit
           clouds={clouds}
-          offset={6}
+          offset={isMobile ? 5.93 : 6.1}
           radius={cloudOrbitRadius}
           rotation={cloudOrbitRotation}
           selectedCloud={selectedCloud}
@@ -168,12 +173,21 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
 
         <Silhouette isDragging={isDragging} rotation={flashlightRotation} length={lightLength} ref={flashlightRef}  />
 
-        {(children && selectedCloud) && <div className={`${cloudStyles.cloud} ${cloudStyles.fullscreen}`}>
-            <button className={buttonStyles.close} onClick={() => (setSelectedCloud(false), router.push('/'))}></button>
+        {(children && selectedCloud) &&
+          <div className={`${cloudStyles.cloud} ${cloudStyles.fullscreen}`}>
+            <button className={buttonStyles.close} onClick={() => (setSelectedCloud(false), router?.push('/'))}></button>
+            
             <article>
               {children}
             </article>
-        </div>}
+
+            {currentCloudIndex !== 0 &&
+              <button className={buttonStyles.previous} onClick={() => (setSelectedCloud(clouds[currentCloudIndex - 1]), router?.push(clouds[currentCloudIndex - 1].slug))}>Prev</button> }
+
+            {currentCloudIndex !== clouds.length - 1 &&
+              <button className={buttonStyles.next} onClick={() => (setSelectedCloud(clouds[currentCloudIndex + 1]), router?.push(clouds[currentCloudIndex + 1].slug))}>Next</button>}
+          </div>
+        }
       </main>
 
       <footer className={styles.footer}>
