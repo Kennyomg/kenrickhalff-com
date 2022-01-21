@@ -9,7 +9,7 @@ export const clouds: Cloud[] = [
       alt: 'Picture of Kenrick Halff'
     },
     slug: '/about',
-    title: 'About Kenrick',
+    title: 'About Me',
     type: CloudType.CONTENT,
     parent: false,
     private: false,
@@ -45,7 +45,7 @@ export const clouds: Cloud[] = [
       alt: 'Logaholic logo'
     },
     slug: '/blog/logaholic',
-    title: 'Logaholic - Work XP',
+    title: 'Logaholic - Work',
     type: CloudType.POST,
     parent: false,
     private: false,
@@ -57,7 +57,7 @@ export const clouds: Cloud[] = [
       alt: 'Bizzmark logo'
     },
     slug: '/blog/bizzmark',
-    title: 'Bizzmark - Work XP',
+    title: 'Bizzmark - Work',
     type: CloudType.POST,
     parent: false,
     private: false,
@@ -69,7 +69,7 @@ export const clouds: Cloud[] = [
       alt: 'Jouw Omgeving logo'
     },
     slug: '/blog/jouw-omgeving',
-    title: 'Jouw Omgeving - Work XP',
+    title: 'Jouw Omgeving - Work',
     type: CloudType.POST,
     parent: false,
     private: false,
@@ -81,7 +81,7 @@ export const clouds: Cloud[] = [
       alt: 'Comsys logo'
     },
     slug: '/blog/comsys',
-    title: 'Comsys - Work XP',
+    title: 'Comsys - Work',
     type: CloudType.POST,
     parent: false,
     private: false,
@@ -93,7 +93,7 @@ export const clouds: Cloud[] = [
       alt: 'Social Brothers logo'
     },
     slug: '/blog/social-brothers',
-    title: 'Social Brothers - Work XP',
+    title: 'Social Brothers - Work',
     type: CloudType.POST,
     parent: false,
     private: false,
@@ -165,7 +165,7 @@ export const clouds: Cloud[] = [
       alt: 'CatRPG'
     },
     slug: '/blog/catrpg',
-    title: 'CatRPG - Game/Tech Demo',
+    title: 'CatRPG - Tech Demo',
     type: CloudType.POST,
     parent: false,
     private: false,
