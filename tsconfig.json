@@ -16,5 +16,5 @@
     "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "test-results", ".vercel", "playwright-report", ".next", ".github", "**/*.mdx"]
+  "exclude": ["node_modules", "test-results", ".vercel", "playwright-report", ".yarn", ".next", ".github", "**/*.mdx"]
 }
