@@ -5,24 +5,23 @@
  * @see https://github.com/react-boilerplate/react-boilerplate/tree/master/docs/testing
  *
  */
-
-import React from 'react';
 import { render } from '@testing-library/react'
-// import 'jest-dom/extend-expect'; // add some helpful assertions
 
-import ExperienceSelector from '../index';
+import ExperienceSelector from '../index'
 
 describe('<ExperienceSelector />', () => {
   it('Expect to not log errors in console', () => {
-    const spy = jest.spyOn(global.console, 'error');
+    const spy = jest.spyOn(global.console, 'error')
+
     render(
-      <ExperienceSelector />
-    );
-    expect(spy).not.toHaveBeenCalled();
-  });
+      <ExperienceSelector width={1920} height={1080} />
+    )
+
+    expect(spy).not.toHaveBeenCalled()
+  })
 
   it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
+    expect(true).toEqual(false)
   });
 
   /**
@@ -34,7 +33,7 @@ describe('<ExperienceSelector />', () => {
     const {
       container: { firstChild },
     } = render(
-      <ExperienceSelector />
+      <ExperienceSelector width={1920} height={1080} />
     );
     expect(firstChild).toMatchSnapshot();
   });
