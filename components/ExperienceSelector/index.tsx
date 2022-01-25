@@ -4,22 +4,36 @@
  *
  */
 
-import { useRef } from 'react';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-
 import * as THREE from 'three';
-// import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader';
 
 import {
   SVGRenderer,
   SVGObject,
 } from 'three/examples/jsm/renderers/SVGRenderer';
-// import { node } from 'prop-types';
+import { getRandomInt } from '../../lib/math-utils';
+import { getRandomFromList } from '../../lib/object-utils';
 
-// import image from 'file-loader?name=[name].[ext]!../../images/logos/angular.svg';
 
-function ExperienceSelector({width, height}) {
+interface ExperienceSelectorProps {
+  width: number
+  height: number
+}
+
+interface MoveToLocation {
+  x: number,
+  y: number,
+  speed: number,
+  stepDistanceX?: number,
+  stepDistanceY?: number,
+  movingToSelected?: boolean,
+  amountOfSteps?: number
+}
+
+interface Logo extends SVGObject {
+  moveToLocation?: MoveToLocation
+}
+
+function ExperienceSelector({width, height}: ExperienceSelectorProps) {
   if (process.browser) {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -29,6 +43,7 @@ function ExperienceSelector({width, height}) {
       1000,
     );
 
+    /* @ts-ignore */
     const renderer = new SVGRenderer({ alpha: true });
     const fileLoader = new THREE.FileLoader();
     scene.background = new THREE.Color(0xf0f0f0);
@@ -71,11 +86,10 @@ function ExperienceSelector({width, height}) {
         '/logos/wordpress.svg',
       ],
       fileLoader,
-    ).then(result => {
-      const logos = result;
-      let isLogoSelected = false;
-      let selectedLogo;
-      let selectedLogoArrived;
+    ).then((logos: Logo[]) => {
+      let isLogoSelected: boolean = false;
+      let selectedLogo: Logo;
+      let selectedLogoArrived: boolean;
 
       logos.forEach(logo => {
         scene.add(logo);
@@ -120,26 +134,26 @@ function ExperienceSelector({width, height}) {
 
 export default ExperienceSelector;
 
-function addSVGToScene(resourcePaths, loader) {
-  const promises = [];
+function addSVGToScene(resourcePaths: string[], loader: THREE.FileLoader) {
+  const promises: Promise<Logo>[] = [];
   resourcePaths.forEach(resourcePath => {
     promises.push(
       new Promise(resolve => {
         loader.load(resourcePath, svg => {
           const node = document.createElementNS('http://www.w3.org/2000/svg', 'g');
           const parser = new DOMParser();
-          const doc = parser.parseFromString(svg, 'image/svg+xml');
+          const doc = parser.parseFromString(svg as string, 'image/svg+xml');
           doc.documentElement.setAttribute('height', '20px');
           doc.documentElement.setAttribute('width', '20px');
 
           node.appendChild(doc.documentElement);
 
           node.addEventListener('click', function eventHandler() {
-            this.dataset.selected = true;
+            this.dataset.selected = 'true';
             console.log('clicked');
           });
 
-          const object = new SVGObject(node);
+          const object: Logo = new SVGObject(node) as Logo;
           object.position.x = getRandomInt(
             (600 / 2) * -1,
             600 / 2,
@@ -159,25 +173,14 @@ function addSVGToScene(resourcePaths, loader) {
 
   return Promise.all(promises);
 }
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function getRandomFromList(list) {
-  return list[Math.floor(Math.random() * list.length)]
-}
-
-function fall(logo) {
+function fall(logo: Logo) {
   if (logo.position.y > -400) {
     logo.position.y -= 15;
   }
 }
 
-function wanderTo(logo, moveToLocation, cb) {
-  if (moveToLocation) {
+function wanderTo(logo: Logo, moveToLocation?: MoveToLocation, cb?: Function) {
+  if (moveToLocation && logo.moveToLocation) {
     if (!logo.moveToLocation.movingToSelected) {
       generateMoveToLocation(
         logo,
@@ -188,7 +191,7 @@ function wanderTo(logo, moveToLocation, cb) {
       logo.moveToLocation.movingToSelected = true;
     }
 
-    if (!logo.moveToLocation.amountOfSteps) {
+    if (!logo.moveToLocation?.amountOfSteps && cb) {
       cb();
     }
   }
@@ -197,26 +200,30 @@ function wanderTo(logo, moveToLocation, cb) {
     generateMoveToLocation(logo);
   }
 
-  if (!logo.moveToLocation.amountOfSteps) {
+  if (!logo.moveToLocation?.amountOfSteps) {
     generateMoveToLocation(logo);
   }
 
-  if (logo.position.x < logo.moveToLocation.x) {
-    logo.position.x += logo.moveToLocation.stepDistanceX;
-  } else if (logo.position.x > logo.moveToLocation.x) {
-    logo.position.x -= logo.moveToLocation.stepDistanceX;
-  }
+  if (logo.moveToLocation && logo.moveToLocation.stepDistanceX 
+      && logo.moveToLocation.stepDistanceY && logo.moveToLocation.amountOfSteps) 
+  {
+    if (logo.position.x < logo.moveToLocation.x) {
+      logo.position.x += logo.moveToLocation.stepDistanceX;
+    } else if (logo.position.x > logo.moveToLocation.x) {
+      logo.position.x -= logo.moveToLocation.stepDistanceX;
+    }
 
-  if (logo.position.y < logo.moveToLocation.y) {
-    logo.position.y += logo.moveToLocation.stepDistanceY;
-  } else if (logo.position.y > logo.moveToLocation.y) {
-    logo.position.y -= logo.moveToLocation.stepDistanceY;
-  }
+    if (logo.position.y < logo.moveToLocation.y) {
+      logo.position.y += logo.moveToLocation.stepDistanceY;
+    } else if (logo.position.y > logo.moveToLocation.y) {
+      logo.position.y -= logo.moveToLocation.stepDistanceY;
+    }
 
-  logo.moveToLocation.amountOfSteps -= 1;
+    logo.moveToLocation.amountOfSteps -= 1;
+  }
 }
 
-function shiverObject(logo) {
+function shiverObject(logo: Logo) {
   if (logo.position.x >= -400 && logo.position.x <= 400) {
     if (Math.round(Math.random())) {
       logo.position.x += Math.random();
@@ -250,7 +257,7 @@ function shiverObject(logo) {
   }
 }
 
-function generateMoveToLocation(logo, x, y, speed) {
+function generateMoveToLocation(logo: Logo, x?: number, y?: number, speed?: number) {
   logo.moveToLocation = {
     x:
       x ||

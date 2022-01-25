@@ -20,3 +20,7 @@ export const isEqual = (obj1: any, obj2: any) => {
 }
 
 export const isObject = (object: Object) => object != null && typeof object === 'object'
+
+export function getRandomFromList(list: Array<any>) {
+    return list[Math.floor(Math.random() * list.length)]
+}
