@@ -9,7 +9,7 @@ import { render } from '@testing-library/react'
 
 import ExperienceSelector from '../index'
 
-describe('<ExperienceSelector />', () => {
+describe('<ExperienceSelector width={1920} height={1080} />', () => {
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error')
 

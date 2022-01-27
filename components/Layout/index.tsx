@@ -17,6 +17,10 @@ import buttonStyles from '../../styles/Button.module.scss'
 
 import { Cloud, LayoutProps, Vector } from '../../types/common/interfaces'
 
+function stopEventProp(event: React.MouseEvent | React.TouchEvent) {
+  event.stopPropagation()
+}
+
 const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
   const router = useRouter()
 
@@ -67,7 +71,6 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
   ])
 
   useGlobalMouseDown(({ clientX: x , clientY: y }: MouseEvent) => {
-
     if (flashlightRef) {
       setFlashlightRotation(getAngleBetweenPoints(flashlightPivotCoords, {x, y}))
       setLightLength(getDistanceBetweenPoints(flashlightPivotCoords, {x, y}) - initialFlashlightHeight)
@@ -175,17 +178,17 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
 
         {(children && selectedCloud) &&
           <div className={`${cloudStyles.cloud} ${cloudStyles.fullscreen}`}>
-            <button className={buttonStyles.close} onClick={() => (setSelectedCloud(false), router?.push('/'))}></button>
+            <button className={buttonStyles.close} onMouseDown={stopEventProp} onClick={() => (setSelectedCloud(false), router?.push('/'))}></button>
             
             <article>
               {children}
             </article>
 
             {currentCloudIndex !== 0 &&
-              <button className={buttonStyles.previous} onClick={() => (setSelectedCloud(clouds[currentCloudIndex - 1]), router?.push(clouds[currentCloudIndex - 1].slug))}>Prev</button> }
+              <button className={buttonStyles.previous} onMouseDown={stopEventProp} onClick={() => (setSelectedCloud(clouds[currentCloudIndex - 1]), router?.push(clouds[currentCloudIndex - 1].slug))}>Prev</button> }
 
             {currentCloudIndex !== clouds.length - 1 &&
-              <button className={buttonStyles.next} onClick={() => (setSelectedCloud(clouds[currentCloudIndex + 1]), router?.push(clouds[currentCloudIndex + 1].slug))}>Next</button>}
+              <button className={buttonStyles.next} onMouseDown={stopEventProp} onClick={() => (setSelectedCloud(clouds[currentCloudIndex + 1]), router?.push(clouds[currentCloudIndex + 1].slug))}>Next</button>}
           </div>
         }
       </main>

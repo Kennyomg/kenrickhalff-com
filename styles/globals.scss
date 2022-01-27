@@ -26,7 +26,7 @@
   --moon-light-gradient-color-3: rgba(56,40,92,.4);
   --moon-light-gradient-color-4: rgb(12, 20, 69, 0);
   --moon-light-gradient: radial-gradient(circle farthest-side at var(--moon-position), var(--moon-light-gradient-color-1) 13%, var(--moon-light-gradient-color-2) 21%, var(--moon-light-gradient-color-3) 34%, var(--moon-light-gradient-color-4) 55%);
-  --flashlight-color: rgba(255, 255, 0, .5);
+  --flashlight-color: rgba(255, 215, 0, .15);
 
   --mobile-s: 320px;
   --mobile-m: 375px;
@@ -78,7 +78,7 @@ article {
   color: var(--night-sky-blue);
 }
 
-article *:not(p) {
+article *:not(p):not(.p) {
   width: 100%;
 }
 
@@ -86,7 +86,15 @@ article ul {
   list-style: none;
 }
 
-article p {
+article .p ul {
+  padding-left: 1rem;
+
+  li:not(:first-child) {
+    margin-top: .5rem;
+  }
+}
+
+article p, article .p {
   width: 100%;
   margin-right: auto;
 }
@@ -101,7 +109,7 @@ article a:hover {
 }
 
 @include for-tablet-landscape-up {
-  article p {
+  article p, article .p {
     width: calc(50% - 3rem);
   }
 }

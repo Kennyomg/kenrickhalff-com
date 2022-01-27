@@ -5,11 +5,11 @@
  */
 
 import * as THREE from 'three';
-
 import {
   SVGRenderer,
   SVGObject,
 } from 'three/examples/jsm/renderers/SVGRenderer';
+
 import { getRandomInt } from '../../lib/math-utils';
 import { getRandomFromList } from '../../lib/object-utils';
 
@@ -131,6 +131,8 @@ function ExperienceSelector({width, height}: ExperienceSelectorProps) {
   }
   return <></>
 }
+
+ExperienceSelector.displayName = 'ExperienceSelector'
 
 export default ExperienceSelector;
 

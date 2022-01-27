@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { MouseEventHandler, TouchEventHandler } from "react"
 import { PHI } from "../../lib/math-utils"
 import styles from '../../styles/Cloud.module.scss'
@@ -49,6 +50,9 @@ export const generateCloud = ({rotation, radius, offset, selectedCloud, mouseDow
               onMouseUp={(_) => !isDragging && setSelectedCloud(false)}
               onMouseDown={mouseDownHandler as MouseEventHandler} onTouchStart={mouseDownHandler as TouchEventHandler}>
                 <CloudSvg width={200} />
+                <div className={styles.cloudIcon}>
+                  <Image src={c.img.url} alt={c.img.alt} width={200 / PHI} height={200 / PHI} />
+                </div>
                 <div className={`${styles.title}`}>{c.title}</div>
             </div>
     
@@ -61,6 +65,9 @@ export const generateCloud = ({rotation, radius, offset, selectedCloud, mouseDow
               onMouseUp={(_) => !isDragging && (setSelectedCloud(c), router?.push(c.slug))}
               onMouseDown={mouseDownHandler as MouseEventHandler} onTouchStart={mouseDownHandler as TouchEventHandler}>
                 <CloudSvg width={200} />
+                <div className={styles.cloudIcon}>
+                  <Image src={c.img.url} alt={c.img.alt} width={200 / PHI} height={200 / PHI} />
+                </div>
                 <div className={`${styles.title}`}>{c.title}</div>
           </div>
     
