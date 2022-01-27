@@ -194,7 +194,7 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
       </main>
 
       <footer className={styles.footer}>
-        Designed and made by Kenrick Halff
+        Portfolio by Kenrick Halff
       </footer>
     </div>
   )

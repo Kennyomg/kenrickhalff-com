@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { MouseEventHandler, TouchEventHandler } from "react"
+import { MouseEventHandler, TouchEventHandler, useState } from "react"
 import { PHI } from "../../lib/math-utils"
 import styles from '../../styles/Cloud.module.scss'
 import { Cloud, CloudProps } from "../../types/common/interfaces"
@@ -38,6 +38,12 @@ const CloudSvg: React.FC<CloudSvgProps> = ({width}) => (
 
 // eslint-disable-next-line react/display-name
 export const generateCloud = ({rotation, radius, offset, selectedCloud, mouseDownHandler, isDragging, setSelectedCloud, router} : CloudProps) => (c: Cloud, i: number) => {
+  const [ showArrow, setShowArrow ] = useState(true)
+
+  if (isDragging && showArrow) {
+    setShowArrow(false)
+  }
+
   const left = radius * Math.sin(offset * i * -1) + radius,
         top = radius * Math.cos(offset * i + Math.PI) + radius,
         transform = `translate(-50%, -50%) rotate(${-rotation}deg)`;
@@ -58,7 +64,7 @@ export const generateCloud = ({rotation, radius, offset, selectedCloud, mouseDow
     
   }
   
-  return <div className={`${styles.cloud}`}
+  return <div className={`${styles.cloud} ${(!i && showArrow) && styles.showArrow}`}
               style={{left, top, transform}}
               ref={c.ref}
               data-testid={`cloud-${i}`} key={`cloud-${i}`}

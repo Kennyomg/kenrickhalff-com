@@ -74,3 +74,12 @@
     font-size: 1.3rem;
   }
 }
+
+.showArrow::after {
+  content: '\27F7';
+  display: block;
+  position: absolute;
+  transform-origin:50% 100%;
+  transform: rotate(45deg);
+  font-size: 3rem;
+}
