@@ -13,7 +13,7 @@ describe('Layout', () => {
     const footer = screen.getByRole('contentinfo')
 
     expect(footer).toBeInTheDocument()
-    expect(footer.innerHTML).toBe("Designed and made by Kenrick Halff")
+    expect(footer.innerHTML).toBe("Portfolio by Kenrick Halff")
   })
 
   it('renders the background silhouette svg', () => {
