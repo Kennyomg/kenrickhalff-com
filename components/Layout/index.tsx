@@ -1,166 +1,234 @@
-import React, { useState, useRef, useEffect, FC, PropsWithChildren } from 'react'
-import Head from 'next/head'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { isMobile } from 'react-device-detect'
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  FC,
+  PropsWithChildren,
+} from "react";
+import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { isMobile } from "react-device-detect";
 
-import { getAngleBetweenPoints, getDistanceBetweenPoints } from '../../lib/math-utils'
-import { useGlobalMouseDown } from '../../lib/react-hooks'
-import { clouds as defaultClouds } from '../../lib/constants/clouds'
+import {
+  getAngleBetweenPoints,
+  getDistanceBetweenPoints,
+} from "../../lib/math-utils";
+import { useGlobalMouseDown } from "../../lib/react-hooks";
+import { clouds as defaultClouds } from "../../lib/constants/clouds";
 
-import CloudOrbit from '../CloudOrbit'
-import Silhouette from '../Silhouette'
+import CloudOrbit from "../CloudOrbit";
+import Silhouette from "../Silhouette";
 
-import styles from '../../styles/Layout.module.scss'
-import cloudStyles from '../../styles/Cloud.module.scss'
-import buttonStyles from '../../styles/Button.module.scss'
+import styles from "../../styles/Layout.module.scss";
+import cloudStyles from "../../styles/Cloud.module.scss";
+import buttonStyles from "../../styles/Button.module.scss";
 
-import { Cloud, LayoutProps, Vector } from '../../types/common/interfaces'
+import { Cloud, LayoutProps, Vector } from "../../types/common/interfaces";
 
 function stopEventProp(event: React.MouseEvent | React.TouchEvent) {
-  event.stopPropagation()
+  event.stopPropagation();
 }
 
-const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
-  const router = useRouter()
+const Layout: FC<PropsWithChildren<LayoutProps>> = ({ children }) => {
+  const router = useRouter();
 
-  const flashlightRef = useRef<HTMLDivElement>(null)
-  const [ flashlightRotation, setFlashlightRotation ] = useState(0)
-  const [ lightLength, setLightLength ] = useState(200)
-  const [ flashlightPivotCoords, setFlashlightPivotCoords ] = useState<Vector>({x: 0, y: 0})
-  const [ initialFlashlightHeight, setInitialFlashlightHeight ] = useState(0)
+  const flashlightRef = useRef<HTMLDivElement>(null);
+  const [flashlightRotation, setFlashlightRotation] = useState(0);
+  const [lightLength, setLightLength] = useState(200);
+  const [flashlightPivotCoords, setFlashlightPivotCoords] = useState<Vector>({
+    x: 0,
+    y: 0,
+  });
+  const [initialFlashlightHeight, setInitialFlashlightHeight] = useState(0);
 
-  const cloudOrbitRef = useRef<HTMLDivElement>(null)
-  const [ cloudOrbitRotation, setCloudOrbitRotation ] = useState(0)
-  const [ cloudOrbitRadius, setCloudOrbitRadius ] = useState(0)
-  const [ cloudOrbitPivotCoords, setCloudOrbitPivotCoords ] = useState<Vector>({x: 0, y: 0})
-  const [ clouds, setClouds ] = useState<Cloud[]>(defaultClouds)
+  const cloudOrbitRef = useRef<HTMLDivElement>(null);
+  const [cloudOrbitRotation, setCloudOrbitRotation] = useState(0);
+  const [cloudOrbitRadius, setCloudOrbitRadius] = useState(0);
+  const [cloudOrbitPivotCoords, setCloudOrbitPivotCoords] = useState<Vector>({
+    x: 0,
+    y: 0,
+  });
+  const [clouds, setClouds] = useState<Cloud[]>(defaultClouds);
 
-  const [ selectedCloud, setSelectedCloud] = useState<Cloud | false>(clouds.find((c) => router && c.slug === router.asPath ) || false)
-  const [ isMouseDown, setIsMouseDown ] = useState(false)
-  const [ isDragging, setIsDragging ] = useState(false)
-  const [ dragStartCloudOrbitRotation, setDragStartCloudOrbitRotation ] = useState(0)
-  const [ dragStartMouseAngle, setDragStartMouseAngle ] = useState(0)
+  const [selectedCloud, setSelectedCloud] = useState<Cloud | false>(
+    clouds.find((c) => router && c.slug === router.asPath) || false
+  );
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartCloudOrbitRotation, setDragStartCloudOrbitRotation] =
+    useState(0);
+  const [dragStartMouseAngle, setDragStartMouseAngle] = useState(0);
 
   useEffect(() => {
-    const flashlightRect = flashlightRef.current?.getBoundingClientRect() || new DOMRect()
-    
-    if (!flashlightPivotCoords.x && !flashlightPivotCoords.y) {
-      const pivot: Vector = { x: flashlightRect.left + flashlightRect.width / 2, y: flashlightRect.bottom }
-      setFlashlightPivotCoords(pivot)
+    const flashlightRect =
+      flashlightRef.current?.getBoundingClientRect() || new DOMRect();
+
+    if (!(flashlightPivotCoords.x || flashlightPivotCoords.y)) {
+      const pivot: Vector = {
+        x: flashlightRect.left + flashlightRect.width / 2,
+        y: flashlightRect.bottom,
+      };
+      setFlashlightPivotCoords(pivot);
     }
 
     if (!initialFlashlightHeight) {
-      setInitialFlashlightHeight(flashlightRect.height - 40 /* minus the overlap of the flashlight and light */)
+      setInitialFlashlightHeight(
+        flashlightRect.height -
+          40 /* minus the overlap of the flashlight and light */
+      );
     }
 
-    const cloudOrbitRect = cloudOrbitRef.current?.getBoundingClientRect() || new DOMRect()
+    const cloudOrbitRect =
+      cloudOrbitRef.current?.getBoundingClientRect() || new DOMRect();
 
-    if (!cloudOrbitPivotCoords.x && !cloudOrbitPivotCoords.y) {
-      const pivot: Vector = { x: cloudOrbitRect.left + cloudOrbitRect.width / 2, y: cloudOrbitRect.top + cloudOrbitRect.height / 2}
-      setCloudOrbitPivotCoords(pivot)
-      setCloudOrbitRotation(isMobile ? 20 : 35)
+    if (!(cloudOrbitPivotCoords.x || cloudOrbitPivotCoords.y)) {
+      const pivot: Vector = {
+        x: cloudOrbitRect.left + cloudOrbitRect.width / 2,
+        y: cloudOrbitRect.top + cloudOrbitRect.height / 2,
+      };
+      setCloudOrbitPivotCoords(pivot);
+      setCloudOrbitRotation(isMobile ? 20 : 35);
     }
 
     if (!cloudOrbitRadius) {
-      setCloudOrbitRadius(cloudOrbitRect.width / 2)
+      setCloudOrbitRadius(cloudOrbitRect.width / 2);
     }
-   }, [
-    initialFlashlightHeight, flashlightPivotCoords.x, flashlightPivotCoords.y, flashlightRef,
-    cloudOrbitRadius, cloudOrbitPivotCoords.x, cloudOrbitPivotCoords.y
-  ])
+  }, [
+    initialFlashlightHeight,
+    flashlightPivotCoords.x,
+    flashlightPivotCoords.y,
+    flashlightRef,
+    cloudOrbitRadius,
+    cloudOrbitPivotCoords.x,
+    cloudOrbitPivotCoords.y,
+  ]);
 
-  useGlobalMouseDown(({ clientX: x , clientY: y }: MouseEvent) => {
+  useGlobalMouseDown(({ clientX: x, clientY: y }: MouseEvent) => {
     if (flashlightRef) {
-      setFlashlightRotation(getAngleBetweenPoints(flashlightPivotCoords, {x, y}))
-      setLightLength(getDistanceBetweenPoints(flashlightPivotCoords, {x, y}) - initialFlashlightHeight)
+      setFlashlightRotation(
+        getAngleBetweenPoints(flashlightPivotCoords, { x, y })
+      );
+      setLightLength(
+        getDistanceBetweenPoints(flashlightPivotCoords, { x, y }) -
+          initialFlashlightHeight
+      );
     }
-  }, flashlightRef)
+  }, flashlightRef);
 
   function mouseDownHandler() {
-    if (!isMouseDown) setIsMouseDown(true)
+    if (!isMouseDown) setIsMouseDown(true);
   }
 
-  function dragStartHandler({ nativeEvent }: React.MouseEvent | React.TouchEvent) {
+  function dragStartHandler({
+    nativeEvent,
+  }: React.MouseEvent | React.TouchEvent) {
     if (!isDragging && isMouseDown) {
-      let x = 0, y = 0
-      
+      let x = 0;
+      let y = 0;
+
       if (nativeEvent instanceof MouseEvent) {
-        x = nativeEvent.clientX
-        y = nativeEvent.clientY
+        x = nativeEvent.clientX;
+        y = nativeEvent.clientY;
       }
 
       if (nativeEvent instanceof TouchEvent) {
-        x = nativeEvent.changedTouches[0].clientX
-        y = nativeEvent.changedTouches[0].clientY
+        x = nativeEvent.changedTouches[0].clientX;
+        y = nativeEvent.changedTouches[0].clientY;
       }
-      
-      setDragStartCloudOrbitRotation(cloudOrbitRotation)
-      setDragStartMouseAngle(getAngleBetweenPoints(cloudOrbitPivotCoords, {x, y}))
-      setIsDragging(true)
+
+      setDragStartCloudOrbitRotation(cloudOrbitRotation);
+      setDragStartMouseAngle(
+        getAngleBetweenPoints(cloudOrbitPivotCoords, { x, y })
+      );
+      setIsDragging(true);
     }
   }
 
-  function dragEndHandler(): any {
+  // rome-ignore lint/suspicious/noExplicitAny: <explanation>
+  function  dragEndHandler(): any {
     if (isDragging) {
-      setIsDragging(false)
+      setIsDragging(false);
     }
 
     if (isMouseDown) {
-      setIsMouseDown(false)
+      setIsMouseDown(false);
     }
   }
 
   function dragHandler(event: React.MouseEvent | React.TouchEvent): any {
-    dragStartHandler(event)
+    dragStartHandler(event);
 
     if (isDragging && isMouseDown) {
-      let x = 0, y = 0
-      
+      let x = 0;
+      let y = 0;
+
       if (event.nativeEvent instanceof MouseEvent) {
-        x = event.nativeEvent.clientX
-        y = event.nativeEvent.clientY
+        x = event.nativeEvent.clientX;
+        y = event.nativeEvent.clientY;
       }
 
       if (event.nativeEvent instanceof TouchEvent) {
-        x = event.nativeEvent.changedTouches[0].clientX
-        y = event.nativeEvent.changedTouches[0].clientY
+        x = event.nativeEvent.changedTouches[0].clientX;
+        y = event.nativeEvent.changedTouches[0].clientY;
       }
 
       setCloudOrbitRotation(
         dragStartCloudOrbitRotation +
-        getAngleBetweenPoints(cloudOrbitPivotCoords, {x, y}) -
-        dragStartMouseAngle
-      )
-      
-      setFlashlightRotation(getAngleBetweenPoints(flashlightPivotCoords, {x, y}))
-      setLightLength(getDistanceBetweenPoints(flashlightPivotCoords, {x, y}) - initialFlashlightHeight)
+          getAngleBetweenPoints(cloudOrbitPivotCoords, { x, y }) -
+          dragStartMouseAngle
+      );
+
+      setFlashlightRotation(
+        getAngleBetweenPoints(flashlightPivotCoords, { x, y })
+      );
+      setLightLength(
+        getDistanceBetweenPoints(flashlightPivotCoords, { x, y }) -
+          initialFlashlightHeight
+      );
     }
   }
-  let currentCloudIndex = -1
+  let currentCloudIndex = -1;
 
   if (selectedCloud) {
-    currentCloudIndex = clouds.findIndex(c => c.slug === selectedCloud.slug)
+    currentCloudIndex = clouds.findIndex((c) => c.slug === selectedCloud.slug);
   }
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>{`Portfolio - Kenrick Halff`}</title>
-        <meta name="description" content="Portfolio of a fullstack developer - Websites, apps and games" />
-        <meta name="mobile-web-app-capable" content="yes"></meta>
-        <meta name="apple-mobile-web-app-capable" content="yes"></meta>
+        <title>{"Portfolio - Kenrick Halff"}</title>
+        <meta
+          name="description"
+          content="Portfolio of a fullstack developer - Websites, apps and games"
+        />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main} onMouseUp={dragEndHandler} onMouseMove={dragHandler} onTouchMove={dragHandler} onTouchEnd={dragEndHandler}>
-        <div className={styles.stars} data-testid="stars"></div>
-        <div className={styles.twinkling} data-testid="twinkling"></div>
+      <main
+        className={styles.main}
+        onMouseUp={dragEndHandler}
+        onMouseMove={dragHandler}
+        onTouchMove={dragHandler}
+        onTouchEnd={dragEndHandler}
+      >
+        <div className={styles.stars} data-testid="stars" />
+        <div className={styles.twinkling} data-testid="twinkling" />
 
-        <div className={styles.moon} onClick={() => {
-          document.body.requestFullscreen();
-        }}>
-          <Image src="/moon.png" alt="Image of the moon" width={100} height={100} />
+        <div
+          className={styles.moon}
+          onClick={() => {
+            document.body.requestFullscreen();
+          }}
+        >
+          <Image
+            src="/moon.png"
+            alt="Image of the moon"
+            width={100}
+            height={100}
+          />
         </div>
 
         <CloudOrbit
@@ -171,33 +239,59 @@ const Layout: FC<PropsWithChildren<LayoutProps>> = ({children}) => {
           selectedCloud={selectedCloud}
           setSelectedCloud={setSelectedCloud}
           isDragging={isDragging}
-          mouseDownHandler={mouseDownHandler} 
-          ref={cloudOrbitRef} />
+          mouseDownHandler={mouseDownHandler}
+          ref={cloudOrbitRef}
+        />
 
-        <Silhouette isDragging={isDragging} rotation={flashlightRotation} length={lightLength} ref={flashlightRef}  />
+        <Silhouette
+          isDragging={isDragging}
+          rotation={flashlightRotation}
+          length={lightLength}
+          ref={flashlightRef}
+        />
 
-        {(children && selectedCloud) &&
+        {children && selectedCloud && (
           <div className={`${cloudStyles.cloud} ${cloudStyles.fullscreen}`}>
-            <button className={buttonStyles.close} onMouseDown={stopEventProp} onClick={() => (setSelectedCloud(false), router?.push('/'))}></button>
-            
-            <article>
-              {children}
-            </article>
+            <button
+              className={buttonStyles.close}
+              onMouseDown={stopEventProp}
+              onClick={() => (setSelectedCloud(false), router?.push("/"))}
+            />
 
-            {currentCloudIndex !== 0 &&
-              <button className={buttonStyles.previous} onMouseDown={stopEventProp} onClick={() => (setSelectedCloud(clouds[currentCloudIndex - 1]), router?.push(clouds[currentCloudIndex - 1].slug))}>Prev</button> }
+            <article>{children}</article>
 
-            {currentCloudIndex !== clouds.length - 1 &&
-              <button className={buttonStyles.next} onMouseDown={stopEventProp} onClick={() => (setSelectedCloud(clouds[currentCloudIndex + 1]), router?.push(clouds[currentCloudIndex + 1].slug))}>Next</button>}
+            {currentCloudIndex !== 0 && (
+              <button
+                className={buttonStyles.previous}
+                onMouseDown={stopEventProp}
+                onClick={() => (
+                  setSelectedCloud(clouds[currentCloudIndex - 1]),
+                  router?.push(clouds[currentCloudIndex - 1].slug)
+                )}
+              >
+                Prev
+              </button>
+            )}
+
+            {currentCloudIndex !== clouds.length - 1 && (
+              <button
+                className={buttonStyles.next}
+                onMouseDown={stopEventProp}
+                onClick={() => (
+                  setSelectedCloud(clouds[currentCloudIndex + 1]),
+                  router?.push(clouds[currentCloudIndex + 1].slug)
+                )}
+              >
+                Next
+              </button>
+            )}
           </div>
-        }
+        )}
       </main>
 
-      <footer className={styles.footer}>
-        Portfolio by Kenrick Halff
-      </footer>
+      <footer className={styles.footer}>Portfolio by Kenrick Halff</footer>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

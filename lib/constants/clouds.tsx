@@ -101,6 +101,18 @@ export const clouds: Cloud[] = [
   },
   {
     img: { 
+      url: '/Icons/Website_v1.svg',
+      alt: 'E-WISE logo'
+    },
+    slug: '/blog/e-wise',
+    title: 'E-WISE',
+    type: CloudType.POST,
+    parent: false,
+    private: false,
+    ref: createRef()
+  },
+  {
+    img: { 
       url: '/Icons/Games_v1.svg',
       alt: '2D Platformer'
     },
