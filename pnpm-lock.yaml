@@ -10,7 +10,7 @@ specifiers:
   '@testing-library/react-hooks': ^7.0.2
   '@testing-library/user-event': ^13.5.0
   '@types/node': 16.11.12
-  '@types/react': ^17.0.2
+  '@types/react': 17.0.2
   '@types/three': ^0.136.1
   '@yarnpkg/esbuild-plugin-pnp': ^2.0.1-rc.1
   babel-jest: ^27.4.4
@@ -50,7 +50,7 @@ devDependencies:
   '@testing-library/react-hooks': registry.npmmirror.com/@testing-library/react-hooks/7.0.2_7qv3rjnqa3j7exc7qtvho7thru
   '@testing-library/user-event': registry.npmmirror.com/@testing-library/user-event/13.5.0
   '@types/node': registry.npmmirror.com/@types/node/16.11.12
-  '@types/react': registry.npmmirror.com/@types/react/17.0.53
+  '@types/react': registry.npmmirror.com/@types/react/17.0.2
   '@types/three': registry.npmmirror.com/@types/three/0.136.1
   babel-jest: registry.npmmirror.com/babel-jest/27.5.1
   esbuild: registry.npmmirror.com/esbuild/0.14.54
@@ -1640,6 +1640,15 @@ packages:
     version: 18.0.0
     dependencies:
       '@types/react': registry.npmmirror.com/@types/react/17.0.53
+    dev: true
+
+  registry.npmmirror.com/@types/react/17.0.2:
+    resolution: {integrity: sha512-Xt40xQsrkdvjn1EyWe1Bc0dJLcil/9x2vAuW7ya+PuQip4UYUaXyhzWmAbwRsdMgwOFHpfp7/FFZebDU6Y8VHA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/react/-/react-17.0.2.tgz}
+    name: '@types/react'
+    version: 17.0.2
+    dependencies:
+      '@types/prop-types': registry.npmmirror.com/@types/prop-types/15.7.5
+      csstype: registry.npmmirror.com/csstype/3.1.1
     dev: true
 
   registry.npmmirror.com/@types/react/17.0.53:
